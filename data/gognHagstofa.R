@@ -1,8 +1,12 @@
 install.packages("shiny")
 install.packages('pxweb') 
+install.packages('googleVis') 
 
 require(pxweb)
 require(data.table)
+require(googleVis)
+
+#Sækjum gögn frá hagstofunni
 
 bygging_ibudarhusnaeda <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/idnadur/byggingar/IDN03001.px',
@@ -28,7 +32,13 @@ skuldir_eignir_eiginfjarstada <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Efnahagur/thjodhagsreikningar/skuldastada_heimili/THJ09000.px',
                             dims=list("Fjölskyldugerð, aldur og búseta"=c('*'), "Skuldir, eignir og eiginfjárstaða"=c('*'), "Ár"=c('*')), clean=FALSE))
 
+#Googlevis dót
 
+head(skuldir_eignir_eiginfjarstada)
+summary(skuldir_eignir_eiginfjarstada)
 
+Motion = gvisMotionChart(skuldir_eignir_eiginfjarstada, idvar="Eignir alls", timevar="Ár")
+plot(Motion)
 
+help('gvisMotionChart')
 
