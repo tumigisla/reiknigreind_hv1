@@ -14,15 +14,15 @@ bygging_ibudarhusnaeda <-
 
 gistinaetur <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/ferdathjonusta/Gisting/GiAllir/SAM01601.px',
-                            dims=list('Ríkisfang'=c('*'), 'Landsvæði'=c('*'), 'Mánuður'=c('*'), 'Eining'='*', 'Ár'=c('*')), clean=FALSE))
+                            dims=list('Ríkisfang'=c('1'), 'Landsvæði'=c('0'), 'Mánuður'=c('0'), 'Eining'=c('1'), 'Ár'=c('*')), clean=FALSE))
 
 launakostnadarvisitala <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/launakostnadarvisitala/VIN02500.px',
-                            dims=list('Ársfjórðungur'=c('*'), 'Atvinnugrein'=c('*'), 'Vísitala'=c('*'), 'Eining'='*', 'Ár'=c('*')), clean=FALSE))
+                            dims=list('Ársfjórðungur'=c('4'), 'Atvinnugrein'=c('*'), 'Vísitala'=c('*'), 'Eining'='*', 'Ár'=c('*')), clean=FALSE))
 
 visitala_kaupmattar_launa <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Samfelag/launogtekjur/1_launavisitala/1_launavisitala/VIS04004.px',
-                            dims=list('Breytingar'=c('*'), 'Mánuður'=c('*'), 'Ár'=c('*')), clean=FALSE))
+                            dims=list('Breytingar'=c('*'), 'Mánuður'=c('12'), 'Ár'=c('*')), clean=FALSE))
 
 byggingarvisitala <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/idnadur/byggingavisitala/byggingarvisitala/VIS03001.px',
@@ -36,22 +36,20 @@ rummetra_og_fermetraverd <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/idnadur/byggingavisitala/byggingarvisitala/VIS03304.px',
                             dims=list('Ár'=c('*'), 'Mánuður'='*', 'Eining'=c('*')), clean=FALSE))
 
-fermetraverd_agg <- aggregate(as.numeric(lapply(rummetra_og_fermetraverd$Fermetraverð, function (x) {replace(x, is.na(x) | x == '.', 0)}))
+fermetraverd_agg <- subset(aggregate(as.numeric(lapply(rummetra_og_fermetraverd$Fermetraverð, function (x) {replace(x, is.na(x) | x == '.', 0)}))
                               ,by=list(rummetra_og_fermetraverd$Ár)
-                              , FUN=mean, na.rm=TRUE, na.naction=NULL)
-fermetraverd_agg$x[1] <- (fermetraverd_agg$x[1] / 6) * 12 # Bara til gögn fyrir seinni hluta 1987
-fermetraverd_agg$x[29] <- (fermetraverd_agg$x[29] / 9) * 12 # Vantar gögn fyrir síðustu 3 mánuði 2015
+                              , FUN=mean, na.rm=TRUE, na.naction=NULL), select=c(x))
 
 rummetraverd_agg <- aggregate(as.numeric(lapply(rummetra_og_fermetraverd$Rúmmetraverð, function (x) {replace(x, is.na(x) | x == '.', 0)}))
                               ,by=list(rummetra_og_fermetraverd$Ár)
                               , FUN=mean, na.rm=TRUE, na.naction=NULL)
-rummetraverd_agg$x[1] <- (rummetraverd_agg$x[1] / 6) * 12 # Bara til gögn fyrir seinni hluta 1987
-rummetraverd_agg$x[29] <- (rummetraverd_agg$x[29] / 9) * 12 # Vantar gögn fyrir síðustu 3 mánuði 2015
+
+rummetra_og_fermetraverd_agg <- subset(data.frame(rummetraverd_agg, fermetraverd_agg), Group.1 > 1994 & Group.1 < 2015)
+colnames(rummetra_og_fermetraverd_agg) <- c("Ár", "Rúmmetraverð", "Fermetraverð")
 
 fjolskyldur_med_neikvaett_eigid_fe <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Efnahagur/thjodhagsreikningar/skuldastada_heimili/THJ09008.px',
                             dims=list('Fjöldi fjölskyldna með neikvætt eigið fé í fasteign'=c('*'), 'Ár'=c('*')), clean=FALSE))
-
 
 #Googlevis dót
 
