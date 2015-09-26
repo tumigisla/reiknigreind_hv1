@@ -44,12 +44,30 @@ rummetraverd_agg <- aggregate(as.numeric(lapply(rummetra_og_fermetraverd$Rúmmet
                               ,by=list(rummetra_og_fermetraverd$Ár)
                               , FUN=mean, na.rm=TRUE, na.naction=NULL)
 
-rummetra_og_fermetraverd_agg <- subset(data.frame(rummetraverd_agg, fermetraverd_agg), Group.1 > 1994 & Group.1 < 2015)
+rummetra_og_fermetraverd_agg <- subset(data.frame(custom_mean_aggregate(rummetra_og_fermetraverd$Rúmmetraverð, list(rummetra_og_fermetraverd$Ár))
+                                                  ,custom_mean_aggregate(rummetra_og_fermetraverd$Fermetraverð, list(rummetra_og_fermetraverd$Ár)))
+                                       , Group.1 > 1994 & Group.1 < 2015)
 colnames(rummetra_og_fermetraverd_agg) <- c("Ár", "Rúmmetraverð", "Fermetraverð")
 
 fjolskyldur_med_neikvaett_eigid_fe <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Efnahagur/thjodhagsreikningar/skuldastada_heimili/THJ09008.px',
                             dims=list('Fjöldi fjölskyldna með neikvætt eigið fé í fasteign'=c('*'), 'Ár'=c('*')), clean=FALSE))
+
+# Hjálparföll
+
+# xList er þau gögn sem á að aggregate-a.
+# byList er sá listi sem aggregate-a á eftir.
+custom_mean_aggregate <- function(xList, byList)
+{
+  return(aggregate(as.numeric(lapply(xList, function (x) {replace(x, is.na(x) | x == '.', 0)}))
+                   ,by=byList, FUN=mean, na.rm=TRUE, na.naction=NULL))
+}
+
+filter_out_year <- function(list)
+{
+  
+}
+
 
 #Googlevis dót
 
