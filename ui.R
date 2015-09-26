@@ -1,23 +1,10 @@
-
 shinyUI(pageWithSidebar(
-  
-  
-  # Application title
-  headerPanel("Motion Chart"),
-  
+  headerPanel("Example 1: scatter chart"),
   sidebarPanel(
-    
-    br(),
-    p("Gögn frá hagstofunni - ",
-      a("Hagstofan", href="wwfewafwafm")
-    )
-    
-    ),
-  
-  
+    selectInput("dataset", "Choose a dataset:", 
+                choices = c("rock", "pressure", "cars"))
+  ),
   mainPanel(
-    
-    tableOutput("gvMotion")
-    
+    htmlOutput("view")
   )
 ))
