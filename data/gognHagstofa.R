@@ -32,9 +32,10 @@ skuldir_eignir_eiginfjarstada <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Efnahagur/thjodhagsreikningar/skuldastada_heimili/THJ09000.px',
                             dims=list("Fjölskyldugerð, aldur og búseta"=c('*'), "Skuldir, eignir og eiginfjárstaða"=c('*'), "Ár"=c('*')), clean=FALSE))
 
-rummetra_og_fermetraverd_agg <- subset(data.frame(custom_mean_aggregate(rummetra_og_fermetraverd$Rúmmetraverð, list(rummetra_og_fermetraverd$Ár))
-                                                  ,custom_mean_aggregate(rummetra_og_fermetraverd$Fermetraverð, list(rummetra_og_fermetraverd$Ár)))
-                                       , Group.1 > 1994 & Group.1 < 2015)
+rummetra_og_fermetraverd <- 
+    subset(data.frame(custom_mean_aggregate(rummetra_og_fermetraverd$Rúmmetraverð, list(rummetra_og_fermetraverd$Ár))
+                      , extract_column(custom_mean_aggregate(rummetra_og_fermetraverd$Fermetraverð, list(rummetra_og_fermetraverd$Ár)), "x"))
+                      , Group.1 > 1994 & Group.1 < 2015)
 colnames(rummetra_og_fermetraverd_agg) <- c("Ár", "Rúmmetraverð", "Fermetraverð")
 
 fjolskyldur_med_neikvaett_eigid_fe <-
@@ -51,9 +52,11 @@ custom_mean_aggregate <- function(xList, byList)
                    ,by=byList, FUN=mean, na.rm=TRUE, na.naction=NULL))
 }
 
-filter_out_year <- function(list)
+# dataentity er t.d. data.frame eða data.table
+# columnname er nafn þess dálks sem við viljum einangra úr dataentity
+extract_column <- function(dataentity, columnname)
 {
-  
+  return(subset(dataentity, select=c(columnname)))
 }
 
 #Googlevis dót
