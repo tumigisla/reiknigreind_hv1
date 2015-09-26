@@ -1,6 +1,6 @@
 # install.packages('pxweb')
 # install.packages('data.table')
-#install.packages('googleVis')
+# install.packages('googleVis')
 
 require(pxweb)
 require(data.table)
@@ -86,8 +86,14 @@ colnames(fjolskyldur_med_neikvaett_eigid_fe) <- c("Ár", "Fjöldi fjölskyldna",
 # func er nafn á því falli sem aggregate-a á með.
 custom_aggregate <- function(xList, byList, func)
 {
-  return(aggregate(as.numeric(lapply(xList, function (x) {replace(x, is.na(x) | x == '.', 0)}))
+  return(aggregate(numerify_list(xList)
                    ,by=byList, FUN=func, na.rm=TRUE, na.naction=NULL))
+}
+
+# list er listi af strengjum eða tölum
+numerify_list <- function(list)
+{
+  return(as.numeric(lapply(list, function(x) {replace(x, is.na(x) | x == '.', 0)})))
 }
 
 # dataentity er t.d. data.frame eða data.table
