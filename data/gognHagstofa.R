@@ -17,6 +17,20 @@ gistinaetur <-
                             dims=list('Ríkisfang'=c('*'), 'Landsvæði'=c('1'), 'Mánuður'=c('0'), 'Eining'=c('1'), 'Ár'=c('*')), clean=FALSE))
 gistinaetur$Eining <- NULL
 
+gistinaetur_modified <- c(1998:2014)
+fjoldi_rikisfanga <- length(gistinaetur$Ríkisfang)
+for (i in 1:fjoldi_rikisfanga)
+{
+  stakt_rikisfang <- subset(gistinaetur, gistinaetur$Ríkisfang == gistinaetur$Ríkisfang[[i]])
+  gistinaetur_rikisfangs <- NULL
+  for (gistinott in stakt_rikisfang)
+  {
+    gistinaetur_rikisfangs <- c(gistinaetur_rikisfangs, gistinott) 
+  }
+  gistinaetur_modified <- cbind(data.frame(gistinaetur_modified, rev(gistinaetur_rikisfangs[-1])))
+}
+colnames(gistinaetur_modified) <- c("Ár", gistinaetur$Ríkisfang)
+
 launakostnadarvisitala <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/launakostnadarvisitala/VIN02500.px',
                             dims=list('Ársfjórðungur'=c('4'), 'Atvinnugrein'=c('*'), 'Vísitala'=c('*'), 'Eining'=c('*'), 'Ár'=c('*')), clean=FALSE))
@@ -47,7 +61,8 @@ colnames(byggingarvisitala_agg) <- c("Ár", "Grunnur frá 1939", "Grunnur frá 1
 
 skuldir_eignir_eiginfjarstada <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Efnahagur/thjodhagsreikningar/skuldastada_heimili/THJ09000.px',
-                            dims=list("Fjölskyldugerð, aldur og búseta"=c('*'), "Skuldir, eignir og eiginfjárstaða"=c('*'), "Ár"=c('*')), clean=FALSE))
+                            dims=list("Fjölskyldugerð, aldur og búseta"=c('15'), "Skuldir, eignir og eiginfjárstaða"=c('*'), "Ár"=c('*')), clean=FALSE))
+skuldir_eignir_eiginfjarstada$`Fjölskyldugerð, aldur og búseta` <- NULL
 
 rummetra_og_fermetraverd <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/idnadur/byggingavisitala/byggingarvisitala/VIS03304.px',
@@ -95,6 +110,3 @@ Motion = gvisMotionChart(skuldir_eignir_eiginfjarstada, idvar="Eignir alls", tim
 plot(Motion)
 
 help('gvisMotionChart')
-
-
-
