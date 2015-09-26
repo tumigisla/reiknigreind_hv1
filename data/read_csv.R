@@ -1,19 +1,22 @@
+original_dir <- getwd()
+this.dir <- dirname(parent.frame(2)$ofile)
+setwd(this.dir)
 #Interesting
 leiguverd <- read.csv('csv/arid2014leiguverd_260220150.csv', header=TRUE, skip=3, dec=',', as.is=TRUE)
-# Taka saman mánuði:
+# Taka saman mÃ¡nuÃ°i:
 makaskipti_hbsv <- read.csv('csv/fjoldi_makaskipta_ibudir_hbsv_1993-2006_eftir_kaupdegi0.csv', header = TRUE, dec=',', as.is=TRUE)
-# Verð eftir ári.
-hbsv_eftir_ar_all <- read.csv("csv/hbsv_eftir_ár_allt_saman_201502260.csv", header = TRUE, skip=1, nrows=34)
-hbsv_eftir_ar_fjol <- read.csv("csv/hbsv_eftir_ár_allt_saman_201502261.csv", header = TRUE, skip=1, nrows = 34)
-hbsv_eftir_ar_ein <- read.csv("csv/hbsv_eftir_ár_allt_saman_201502262.csv", header = TRUE, skip=1, nrows=34)
-# Upplýsingar um verð eftir landshlutum.
+# VerÃ° eftir Ã¡ri.
+hbsv_eftir_ar_all <- read.csv("csv/hbsv_eftir_Ã¡r_allt_saman_201502260.csv", header = TRUE, skip=1, nrows=34)
+hbsv_eftir_ar_fjol <- read.csv("csv/hbsv_eftir_Ã¡r_allt_saman_201502261.csv", header = TRUE, skip=1, nrows = 34)
+hbsv_eftir_ar_ein <- read.csv("csv/hbsv_eftir_Ã¡r_allt_saman_201502262.csv", header = TRUE, skip=1, nrows=34)
+# UpplÃ½singar um verÃ° eftir landshlutum.
 landshlutar <- read.csv("csv/Landshlutar_201502250.csv", header=TRUE, skip=1)
 # Makaskipti
 makaskipti_hbsv_1 <- read.csv("csv/Makaskipti_hbsv_201502250.csv", header=TRUE, skip=1)
 makaskipti_utan <- read.csv("csv/Makaskipti_utan_hbsv_201502250.csv", header=TRUE, skip=1)
-# Fjöldi íbúða allt land.
+# Fjoldi ibua allt land.
 fjoldi_ibuda <- read.csv("csv/Skipting_ibuda_eftir_svfn__201508240.csv", header=TRUE, skip=1)
-# Fjoldi ibuða eftir sveitarfelagi.
+# Fjoldi ibua eftir sveitarfelagi.
 fjoldi_ibuda_2014 <- read.csv("csv/Skipting_ibuda_eftir_svfn__201508241.csv", header=TRUE)
 fjoldi_ibuda_2013 <- read.csv("csv/Skipting_ibuda_eftir_svfn__201508242.csv", header=TRUE)
 fjoldi_ibuda_2012 <- read.csv("csv/Skipting_ibuda_eftir_svfn__201508243.csv", header=TRUE)
@@ -35,16 +38,17 @@ fjoldi_ibuda_1997 <- read.csv("csv/Skipting_ibuda_eftir_svfn__2015082418.csv", h
 fjoldi_ibuda_1996 <- read.csv("csv/Skipting_ibuda_eftir_svfn__2015082419.csv", header=TRUE)
 fjoldi_ibuda_1995 <- read.csv("csv/Skipting_ibuda_eftir_svfn__2015082420.csv", header=TRUE)
 fjoldi_ibuda_1994 <- read.csv("csv/Skipting_ibuda_eftir_svfn__2015082421.csv", header=TRUE)
-# Skipting eftir gerðum.
+# Skipting eftir gerÃ°um.
 fjoldi_ibuda_gerd_2014 <- read.csv("csv/Skipting_ibuda_eftir_svfn_og_gerd_201508240.csv", header=TRUE, skip=1)
 fjoldi_ibuda_gerd_2013 <- read.csv("csv/Skipting_ibuda_eftir_svfn_og_gerd_201508241.csv", header=TRUE, skip=1)
 fjoldi_ibuda_gerd_2012 <- read.csv("csv/Skipting_ibuda_eftir_svfn_og_gerd_201508242.csv", header=TRUE, skip=1)
 fjoldi_ibuda_gerd_2011 <- read.csv("csv/Skipting_ibuda_eftir_svfn_og_gerd_201508243.csv", header=TRUE, skip=1)
-# Söluverð
-soluverd_alls <- read.csv("csv/Söluverð_á_nýjum_íbúðum_201502250.csv", header=TRUE, skip=1)
-soluverd_fjol <- read.csv("csv/Söluverð_á_nýjum_íbúðum_201502251.csv", header=TRUE, skip=1)
-soluverd_ein <- read.csv("csv/Söluverð_á_nýjum_íbúðum_201502252.csv", header=TRUE, skip=1)
-# Fjöldi sumarhúsa.
-sumarhus_landshlutum <- read.csv("csv/Sumarhús_e_landshlutum_24_08_20150.csv", header=TRUE, skip=2, nrows=18)
-# Verð eftir bæjarfélagi
-verd_baer <- read.csv("csv/verd_eftir_bæjum_frá19900.csv", header=TRUE, skip=1)
+# SÃ¶luverÃ°
+soluverd_alls <- read.csv("csv/SÃ¶luverÃ°_Ã¡_nÃ½jum_Ã­bÃºÃ°um_201502250.csv", header=TRUE, skip=1)
+soluverd_fjol <- read.csv("csv/SÃ¶luverÃ°_Ã¡_nÃ½jum_Ã­bÃºÃ°um_201502251.csv", header=TRUE, skip=1)
+soluverd_ein <- read.csv("csv/SÃ¶luverÃ°_Ã¡_nÃ½jum_Ã­bÃºÃ°um_201502252.csv", header=TRUE, skip=1)
+# FjÃ¶ldi sumarhÃºsa.
+sumarhus_landshlutum <- read.csv("csv/SumarhÃºs_e_landshlutum_24_08_20150.csv", header=TRUE, skip=2, nrows=18)
+# VerÃ° eftir bÃ¦jarfÃ©lagi
+verd_baer <- read.csv("csv/verd_eftir_bÃ¦jum_frÃ¡19900.csv", header=TRUE, skip=1)
+setwd(original_dir)
