@@ -1,0 +1,75 @@
+Sveitarfélagsnúmer,Heiti sveitarfélags,Fjöldi íbúða
+0.0,Reykjavík,50914.0
+1000.0,Kópavogur,12497.0
+1100.0,Seltjarnarnes,1646.0
+1300.0,Garðabær,5012.0
+1400.0,Hafnarfjörður,9734.0
+1604.0,Mosfellsbær,2999.0
+1606.0,Kjósarhreppur,94.0
+2000.0,Reykjanesbær,7190.0
+2300.0,Grindavík,1003.0
+2503.0,Sandgerði,588.0
+2504.0,Garður,551.0
+2506.0,Vogar,426.0
+3000.0,Akranes,2548.0
+3506.0,Skorradalshreppur,41.0
+3511.0,Hvalfjarðarsveit,246.0
+3609.0,Borgarbyggð,1787.0
+3709.0,Grundarfjarðarbær,346.0
+3710.0,Helgafellssveit,40.0
+3711.0,Stykkishólmur,498.0
+3713.0,Eyja- og Miklaholtshreppur,65.0
+3714.0,Snæfellsbær,694.0
+3811.0,Dalabyggð,352.0
+4100.0,Bolungarvík,392.0
+4200.0,Ísafjarðarbær,1718.0
+4502.0,Reykhólahreppur,158.0
+4604.0,Tálknafjarðarhreppur,117.0
+4607.0,Vesturbyggð,529.0
+4803.0,Súðavíkurhreppur,106.0
+4901.0,Árneshreppur,36.0
+4902.0,Kaldrananeshreppur,66.0
+4911.0,Strandabyggð,233.0
+5200.0,Skagafjörður,1785.0
+5508.0,Húnaþing vestra,583.0
+5604.0,Blönduós,380.0
+5609.0,Skagaströnd,214.0
+5611.0,Skagabyggð,47.0
+5612.0,Húnavatnshreppur,184.0
+5706.0,Akrahreppur,91.0
+6000.0,Akureyri,7578.0
+6100.0,Norðurþing,1284.0
+6250.0,Fjallabyggð,1068.0
+6400.0,Dalvíkurbyggð,730.0
+6513.0,Eyjafjarðarsveit,391.0
+6515.0,Hörgársveit,238.0
+6601.0,Svalbarðsstrandarhreppur,146.0
+6602.0,Grýtubakkahreppur,145.0
+6607.0,Skútustaðahreppur,176.0
+6611.0,Tjörneshreppur,32.0
+6612.0,Þingeyjarsveit,453.0
+6706.0,Svalbarðshreppur,36.0
+6709.0,Langanesbyggð,249.0
+7000.0,Seyðisfjörður,328.0
+7300.0,Fjarðabyggð,1956.0
+7502.0,Vopnafjarðarhreppur,290.0
+7505.0,Fljótsdalshreppur,42.0
+7509.0,Borgarfjarðarhreppur,90.0
+7613.0,Breiðdalshreppur,122.0
+7617.0,Djúpavogshreppur,207.0
+7620.0,Fljótsdalshérað,1488.0
+7708.0,Hornafjörður,825.0
+8000.0,Vestmannaeyjar,1696.0
+8200.0,Sveitarfélagið Árborg,3177.0
+8508.0,Mýrdalshreppur,222.0
+8509.0,Skaftárhreppur,225.0
+8610.0,Ásahreppur,90.0
+8613.0,Rangárþing eystra,690.0
+8614.0,Rangárþing ytra,640.0
+8710.0,Hrunamannahreppur,291.0
+8716.0,Hveragerði,982.0
+8717.0,Ölfus,723.0
+8719.0,Grímsnes-og Grafningshreppur,207.0
+8720.0,Skeiða- og Gnúpverjahreppur,236.0
+8721.0,Bláskógabyggð,441.0
+8722.0,Flóahreppur,232.0
