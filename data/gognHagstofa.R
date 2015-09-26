@@ -1,6 +1,6 @@
 # install.packages('pxweb')
 # install.packages('data.table')
-# install.packages('googleVis')
+install.packages('googleVis')
 
 require(pxweb)
 require(data.table)
@@ -91,12 +91,8 @@ filter_by_period <- function(dataentity, yearfrom, yearto)
 }
 
 #Googlevis dót
-
-head(skuldir_eignir_eiginfjarstada)
-summary(skuldir_eignir_eiginfjarstada)
-
 Motion = gvisMotionChart(skuldir_eignir_eiginfjarstada, idvar="Eignir alls", timevar="Ár")
 plot(Motion)
 
-help('gvisMotionChart')
+
 
