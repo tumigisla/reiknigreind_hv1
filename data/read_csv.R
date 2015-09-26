@@ -1,6 +1,6 @@
-# original_dir <- getwd()
-# this.dir <- dirname(parent.frame(2)$ofile)
-# setwd(this.dir)
+original_dir <- getwd()
+this.dir <- dirname(parent.frame(2)$ofile)
+setwd(this.dir)
 
 # Hjálparföll
 
@@ -20,21 +20,21 @@ extract_column <- function(dataentity, columnname)
 }
 
 # Verð eftir ári (WELL FORMATED).
-hbsv_eftir_ar_all <- read.csv("csv/hbsv_eftir_ár_allt_saman_201502260.csv", header = TRUE, skip=1, nrows=34)
-hbsv_eftir_ar_fjol <- read.csv("csv/hbsv_eftir_ár_allt_saman_201502261.csv", header = TRUE, skip=1, nrows = 34)
-hbsv_eftir_ar_ein <- read.csv("csv/hbsv_eftir_ár_allt_saman_201502262.csv", header = TRUE, skip=1, nrows=34)
+hbsv_eftir_ar_all <- read.csv("csv/hbsv_eftir_ár_allt_saman_201502260.csv", header = TRUE, skip=1, nrows=34, encoding = "UTF-8")
+hbsv_eftir_ar_fjol <- read.csv("csv/hbsv_eftir_ár_allt_saman_201502261.csv", header = TRUE, skip=1, nrows = 34, encoding = "UTF-8")
+hbsv_eftir_ar_ein <- read.csv("csv/hbsv_eftir_ár_allt_saman_201502262.csv", header = TRUE, skip=1, nrows=34, encoding = "UTF-8")
 # Fjöldi íbúða.
-landshlutar <- read.csv("csv/Landshlutar_201502250.csv", header=TRUE, skip=1)
+landshlutar <- read.csv("csv/Landshlutar_201502250.csv", header=TRUE, skip=1, encoding = "UTF-8")
 fjoldi_husa_hbsv <- landshlutar[7:27,]
 names(fjoldi_husa_hbsv)[1] <- "Ár"
 # Samningar + Makaskipti
-makaskipti_hbsv <- read.csv('csv/fjoldi_makaskipta_ibudir_hbsv_1993-2006_eftir_kaupdegi0.csv', header = TRUE, dec=',', as.is=TRUE)
+makaskipti_hbsv <- read.csv('csv/fjoldi_makaskipta_ibudir_hbsv_1993-2006_eftir_kaupdegi0.csv', header = TRUE, dec=',', as.is=TRUE, encoding = "UTF-8")
 makaskipti <- makaskipti_hbsv[c(1,3,4)]
 makaskipti <- subset(data.frame(custom_aggregate(makaskipti$Makaskipti, list(makaskipti$Ár), sum),
                                 extract_column(custom_aggregate(makaskipti$Samningar, list(makaskipti$Ár), sum), 'x')),
                      Group.1 >= 1994)
 colnames(makaskipti) <- c('Ár', 'Makaskipti', 'Samningar')
-makaskipti_hbsv_1 <- read.csv("csv/Makaskipti_hbsv_201502250.csv", header=TRUE, skip=1)
+makaskipti_hbsv_1 <- read.csv("csv/Makaskipti_hbsv_201502250.csv", header=TRUE, skip=1, encoding = "UTF-8")
 makaskipti_hbsv_1 <- makaskipti_hbsv_1[c(1, 3, 4, 5, 6)]
 makaskipti_2006 <- subset(data.frame(custom_aggregate(makaskipti_hbsv_1$Makaskiptasamningar, list(makaskipti_hbsv_1$Ár), sum),
                                 extract_column(custom_aggregate(makaskipti_hbsv_1$Sölur, list(makaskipti_hbsv_1$Ár), sum), 'x')),
@@ -47,12 +47,12 @@ makaskipti <- subset(data.frame(custom_aggregate(makaskipti$Makaskipti, list(mak
                      Group.1 >= 1994)
 colnames(makaskipti) <- c('Ár', 'Makaskipti', 'Samningar')
 # Fjoldi ibua allt land.
-fjoldi_ibuda_allt <- read.csv("csv/Skipting_ibuda_eftir_svfn__201508240.csv", header=TRUE, skip=2)
+fjoldi_ibuda_allt <- read.csv("csv/Skipting_ibuda_eftir_svfn__201508240.csv", header=TRUE, skip=2, encoding = "UTF-8")
 # Fjoldi ibua eftir sveitarfelagi.
 years <- 2014:1994
 fjoldi_ibuda_hbsv <- data.frame(x=integer(21), y=integer(21), stringsAsFactors=FALSE)
 for(i in 1:21){
-  fjoldi_ibuda_temp <- read.csv(paste0("csv/Skipting_ibuda_eftir_svfn__20150824", i, ".csv"), header=TRUE)
+  fjoldi_ibuda_temp <- read.csv(paste0("csv/Skipting_ibuda_eftir_svfn__20150824", i, ".csv"), header=TRUE, encoding = "UTF-8")
   fjoldi_ibuda_temp <- subset(fjoldi_ibuda_temp, fjoldi_ibuda_temp$Sveitarfélagsnúmer < 2000)
   fjoldi_ibuda_hbsv$x[21 - i + 1] <- years[i]
   fjoldi_ibuda_hbsv$y[21 - i + 1] <- sum(fjoldi_ibuda_temp$Fjöldi.íbúða, na.rm=TRUE)
@@ -60,20 +60,20 @@ for(i in 1:21){
 colnames(fjoldi_ibuda_hbsv) <- c('Ár', 'Fjöldi')
 
 #Interesting (split into years in hbsv)
-leiguverd <- read.csv('csv/arid2014leiguverd_260220150.csv', header=TRUE, skip=3, dec=',', as.is=TRUE)
+leiguverd <- read.csv('csv/arid2014leiguverd_260220150.csv', header=TRUE, skip=3, dec=',', as.is=TRUE, encoding = "UTF-8")
 # Makaskipti (SAMA og aður)
-makaskipti_utan <- read.csv("csv/Makaskipti_utan_hbsv_201502250.csv", header=TRUE, skip=1)
+makaskipti_utan <- read.csv("csv/Makaskipti_utan_hbsv_201502250.csv", header=TRUE, skip=1, encoding = "UTF-8")
 # Skipting eftir gerðum.
-fjoldi_ibuda_gerd_2014 <- read.csv("csv/Skipting_ibuda_eftir_svfn_og_gerd_201508240.csv", header=TRUE, skip=1)
-fjoldi_ibuda_gerd_2013 <- read.csv("csv/Skipting_ibuda_eftir_svfn_og_gerd_201508241.csv", header=TRUE, skip=1)
-fjoldi_ibuda_gerd_2012 <- read.csv("csv/Skipting_ibuda_eftir_svfn_og_gerd_201508242.csv", header=TRUE, skip=1)
-fjoldi_ibuda_gerd_2011 <- read.csv("csv/Skipting_ibuda_eftir_svfn_og_gerd_201508243.csv", header=TRUE, skip=1)
+fjoldi_ibuda_gerd_2014 <- read.csv("csv/Skipting_ibuda_eftir_svfn_og_gerd_201508240.csv", header=TRUE, skip=1, encoding = "UTF-8")
+fjoldi_ibuda_gerd_2013 <- read.csv("csv/Skipting_ibuda_eftir_svfn_og_gerd_201508241.csv", header=TRUE, skip=1, encoding = "UTF-8")
+fjoldi_ibuda_gerd_2012 <- read.csv("csv/Skipting_ibuda_eftir_svfn_og_gerd_201508242.csv", header=TRUE, skip=1, encoding = "UTF-8")
+fjoldi_ibuda_gerd_2011 <- read.csv("csv/Skipting_ibuda_eftir_svfn_og_gerd_201508243.csv", header=TRUE, skip=1, encoding = "UTF-8")
 # Söluverð
-soluverd_alls <- read.csv("csv/Söluverð_á_nýjum_íbúðum_201502250.csv", header=TRUE, skip=1)
-soluverd_fjol <- read.csv("csv/Söluverð_á_nýjum_íbúðum_201502251.csv", header=TRUE, skip=1)
-soluverd_ein <- read.csv("csv/Söluverð_á_nýjum_íbúðum_201502252.csv", header=TRUE, skip=1)
+soluverd_alls <- read.csv("csv/Söluverð_á_nýjum_íbúðum_201502250.csv", header=TRUE, skip=1, encoding = "UTF-8")
+soluverd_fjol <- read.csv("csv/Söluverð_á_nýjum_íbúðum_201502251.csv", header=TRUE, skip=1, encoding = "UTF-8")
+soluverd_ein <- read.csv("csv/Söluverð_á_nýjum_íbúðum_201502252.csv", header=TRUE, skip=1, encoding = "UTF-8")
 # Fjöldi sumarhúsa.
-sumarhus_landshlutum <- read.csv("csv/Sumarhús_e_landshlutum_24_08_20150.csv", header=TRUE, skip=2, nrows=18)
+sumarhus_landshlutum <- read.csv("csv/Sumarhús_e_landshlutum_24_08_20150.csv", header=TRUE, skip=2, nrows=18, encoding = "UTF-8")
 # Verð eftir bæjarfélagi
-verd_baer <- read.csv("csv/verd_eftir_bæjum_frá19900.csv", header=TRUE, skip=1)
+verd_baer <- read.csv("csv/verd_eftir_bæjum_frá19900.csv", header=TRUE, skip=1, encoding = "UTF-8")
 setwd(original_dir)
