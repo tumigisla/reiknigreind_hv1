@@ -108,5 +108,3 @@ filter_by_period <- function(dataentity, yearfrom, yearto)
 #Googlevis dót
 Motion = gvisMotionChart(skuldir_eignir_eiginfjarstada, idvar="Eignir alls", timevar="Ár")
 plot(Motion)
-
-help('gvisMotionChart')

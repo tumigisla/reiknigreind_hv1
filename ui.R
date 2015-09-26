@@ -1,15 +1,23 @@
 
-library(shiny)
-
 shinyUI(pageWithSidebar(
-  headerPanel("Gistinætur"),
+  
+  
+  # Application title
+  headerPanel("Motion Chart"),
+  
   sidebarPanel(
-    checkboxInput(inputId = "pageable", label = "Pageable"),
-    conditionalPanel("input.pageable==true",
-                     numericInput(inputId = "pagesize",
-                                  label = "Countries per page",20))    
-  ),
+    
+    br(),
+    p("Gögn frá hagstofunni - ",
+      a("Hagstofan", href="wwfewafwafm")
+    )
+    
+    ),
+  
+  
   mainPanel(
-    htmlOutput("myTable")
+    
+    tableOutput("gvMotion")
+    
   )
 ))
