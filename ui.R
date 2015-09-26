@@ -2,12 +2,14 @@
 library(shiny)
 
 shinyUI(pageWithSidebar(
-  headerPanel("Example 1: scatter chart"),
+  headerPanel("Gistinætur"),
   sidebarPanel(
-    selectInput("dataset", "Choose a dataset:", 
-                choices = c("Vísitala kaupmáttar launa", "Bygging íbúðarhúsnæða", "Launakostnaðarvísitala"))
+    checkboxInput(inputId = "pageable", label = "Pageable"),
+    conditionalPanel("input.pageable==true",
+                     numericInput(inputId = "pagesize",
+                                  label = "Countries per page",20))    
   ),
   mainPanel(
-    htmlOutput("view")
+    htmlOutput("myTable")
   )
 ))
