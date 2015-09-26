@@ -1,15 +1,10 @@
-
-library(shiny)
-
 shinyUI(pageWithSidebar(
-  headerPanel("Gistinætur"),
+  headerPanel("Example 1: scatter chart"),
   sidebarPanel(
-    checkboxInput(inputId = "pageable", label = "Pageable"),
-    conditionalPanel("input.pageable==true",
-                     numericInput(inputId = "pagesize",
-                                  label = "Countries per page",20))    
+    selectInput("dataset", "Choose a dataset:", 
+                choices = c("rock", "pressure", "cars"))
   ),
   mainPanel(
-    htmlOutput("myTable")
+    htmlOutput("view")
   )
 ))

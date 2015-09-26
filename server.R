@@ -1,20 +1,14 @@
+library(googleVis)
 library(shiny)
-
-
-# Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-  
-  
-  
-  myOptions <- reactive({
-    list(
-      page=ifelse(input$pageable==TRUE,'enable','disable'),
-      pageSize=input$pagesize,
-      width=550
-    )
-  })
-  output$myTable <- renderGvis({
-    gvisTable(gistinaetur,options=myOptions())         
+  datasetInput <- reactive({
+    switch(input$dataset,
+           "rock" = hbsv_eftir_ar_all,
+           "pressure" = pressure,
+           "cars" = cars)
   })
   
+  output$view <- renderGvis({
+    gvisBubbleChart(datasetInput(), idvar="Ár", xvar="Meðaltals.flatarmál.mengis..m2.", yvar="Kaupverð.á.fermeter..krónur.", sizevar="Fjöldi.mengis", options=list(width=1000, height=1000))
+  })
 })
