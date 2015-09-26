@@ -1,77 +1,77 @@
-Sveitarfélagsnúmer,Heiti sveitarfélags,Fjöldi íbúğa
-0.0,Reykjavík,50149.0
-1000.0,Kópavogur,11682.0
-1100.0,Seltjarnarnes,1615.0
-1300.0,Garğabær,4014.0
-1400.0,Hafnarfjörğur,9422.0
-1603.0,Álftanes,785.0
-1604.0,Mosfellsbær,2940.0
-1606.0,Kjósarhreppur,96.0
-2000.0,Reykjanesbær,7211.0
-2300.0,Grindavík,979.0
-2503.0,Sandgerği,589.0
-2504.0,Garğur,550.0
-2506.0,Vogar,425.0
-3000.0,Akranes,2539.0
-3506.0,Skorradalshreppur,41.0
-3511.0,Hvalfjarğarsveit,239.0
-3609.0,Borgarbyggğ,1758.0
-3709.0,Grundarfjarğarbær,348.0
-3710.0,Helgafellssveit,39.0
-3711.0,Stykkishólmur,498.0
-3713.0,Eyja- og Miklaholtshreppur,63.0
-3714.0,Snæfellsbær,694.0
-3811.0,Dalabyggğ,357.0
-4100.0,Bolungarvík,380.0
-4200.0,Ísafjarğarbær,1723.0
-4502.0,Reykhólahreppur,157.0
-4604.0,Tálknafjarğarhreppur,118.0
-4607.0,Vesturbyggğ,540.0
-4803.0,Súğavíkurhreppur,107.0
-4901.0,Árneshreppur,33.0
-4902.0,Kaldrananeshreppur,65.0
-4908.0,Bæjarhreppur,48.0
-4911.0,Strandabyggğ,236.0
-5200.0,Skagafjörğur,1765.0
-5508.0,Húnaşing vestra,537.0
-5604.0,Blönduós,381.0
-5609.0,Skagaströnd,212.0
-5611.0,Skagabyggğ,47.0
-5612.0,Húnavatnshreppur,185.0
-5706.0,Akrahreppur,88.0
-6000.0,Akureyri,7341.0
-6100.0,Norğurşing,1285.0
-6250.0,Fjallabyggğ,1068.0
-6400.0,Dalvíkurbyggğ,721.0
-6513.0,Eyjafjarğarsveit,386.0
-6515.0,Hörgársveit,235.0
-6601.0,Svalbarğsstrandarhreppur,142.0
-6602.0,Grıtubakkahreppur,143.0
-6607.0,Skútustağahreppur,172.0
-6611.0,Tjörneshreppur,31.0
-6612.0,Şingeyjarsveit,454.0
-6706.0,Svalbarğshreppur,36.0
-6709.0,Langanesbyggğ,237.0
-7000.0,Seyğisfjörğur,331.0
-7300.0,Fjarğabyggğ,1971.0
-7502.0,Vopnafjarğarhreppur,289.0
-7505.0,Fljótsdalshreppur,40.0
-7509.0,Borgarfjarğarhreppur,91.0
-7613.0,Breiğdalshreppur,123.0
-7617.0,Djúpavogshreppur,210.0
-7620.0,Fljótsdalshérağ,1484.0
-7708.0,Hornafjörğur,821.0
-8000.0,Vestmannaeyjar,1655.0
-8200.0,Sveitarfélagiğ Árborg,3096.0
-8508.0,Mırdalshreppur,223.0
-8509.0,Skaftárhreppur,217.0
-8610.0,Ásahreppur,80.0
-8613.0,Rangárşing eystra,660.0
-8614.0,Rangárşing ytra,629.0
-8710.0,Hrunamannahreppur,285.0
-8716.0,Hveragerği,955.0
-8717.0,Ölfus,709.0
-8719.0,Grímsnes-og Grafningshreppur,196.0
-8720.0,Skeiğa- og Gnúpverjahreppur,229.0
-8721.0,Bláskógabyggğ,434.0
-8722.0,Flóahreppur,221.0
+SveitarfÃ©lagsnÃºmer,Heiti sveitarfÃ©lags,FjÃ¶ldi Ã­bÃºÃ°a
+0.0,ReykjavÃ­k,50149.0
+1000.0,KÃ³pavogur,11682.0
+1100.0,Seltjarnarnes,1615.0
+1300.0,GarÃ°abÃ¦r,4014.0
+1400.0,HafnarfjÃ¶rÃ°ur,9422.0
+1603.0,Ãlftanes,785.0
+1604.0,MosfellsbÃ¦r,2940.0
+1606.0,KjÃ³sarhreppur,96.0
+2000.0,ReykjanesbÃ¦r,7211.0
+2300.0,GrindavÃ­k,979.0
+2503.0,SandgerÃ°i,589.0
+2504.0,GarÃ°ur,550.0
+2506.0,Vogar,425.0
+3000.0,Akranes,2539.0
+3506.0,Skorradalshreppur,41.0
+3511.0,HvalfjarÃ°arsveit,239.0
+3609.0,BorgarbyggÃ°,1758.0
+3709.0,GrundarfjarÃ°arbÃ¦r,348.0
+3710.0,Helgafellssveit,39.0
+3711.0,StykkishÃ³lmur,498.0
+3713.0,Eyja- og Miklaholtshreppur,63.0
+3714.0,SnÃ¦fellsbÃ¦r,694.0
+3811.0,DalabyggÃ°,357.0
+4100.0,BolungarvÃ­k,380.0
+4200.0,ÃsafjarÃ°arbÃ¦r,1723.0
+4502.0,ReykhÃ³lahreppur,157.0
+4604.0,TÃ¡lknafjarÃ°arhreppur,118.0
+4607.0,VesturbyggÃ°,540.0
+4803.0,SÃºÃ°avÃ­kurhreppur,107.0
+4901.0,Ãrneshreppur,33.0
+4902.0,Kaldrananeshreppur,65.0
+4908.0,BÃ¦jarhreppur,48.0
+4911.0,StrandabyggÃ°,236.0
+5200.0,SkagafjÃ¶rÃ°ur,1765.0
+5508.0,HÃºnaÃ¾ing vestra,537.0
+5604.0,BlÃ¶nduÃ³s,381.0
+5609.0,SkagastrÃ¶nd,212.0
+5611.0,SkagabyggÃ°,47.0
+5612.0,HÃºnavatnshreppur,185.0
+5706.0,Akrahreppur,88.0
+6000.0,Akureyri,7341.0
+6100.0,NorÃ°urÃ¾ing,1285.0
+6250.0,FjallabyggÃ°,1068.0
+6400.0,DalvÃ­kurbyggÃ°,721.0
+6513.0,EyjafjarÃ°arsveit,386.0
+6515.0,HÃ¶rgÃ¡rsveit,235.0
+6601.0,SvalbarÃ°sstrandarhreppur,142.0
+6602.0,GrÃ½tubakkahreppur,143.0
+6607.0,SkÃºtustaÃ°ahreppur,172.0
+6611.0,TjÃ¶rneshreppur,31.0
+6612.0,Ãingeyjarsveit,454.0
+6706.0,SvalbarÃ°shreppur,36.0
+6709.0,LanganesbyggÃ°,237.0
+7000.0,SeyÃ°isfjÃ¶rÃ°ur,331.0
+7300.0,FjarÃ°abyggÃ°,1971.0
+7502.0,VopnafjarÃ°arhreppur,289.0
+7505.0,FljÃ³tsdalshreppur,40.0
+7509.0,BorgarfjarÃ°arhreppur,91.0
+7613.0,BreiÃ°dalshreppur,123.0
+7617.0,DjÃºpavogshreppur,210.0
+7620.0,FljÃ³tsdalshÃ©raÃ°,1484.0
+7708.0,HornafjÃ¶rÃ°ur,821.0
+8000.0,Vestmannaeyjar,1655.0
+8200.0,SveitarfÃ©lagiÃ° Ãrborg,3096.0
+8508.0,MÃ½rdalshreppur,223.0
+8509.0,SkaftÃ¡rhreppur,217.0
+8610.0,Ãsahreppur,80.0
+8613.0,RangÃ¡rÃ¾ing eystra,660.0
+8614.0,RangÃ¡rÃ¾ing ytra,629.0
+8710.0,Hrunamannahreppur,285.0
+8716.0,HveragerÃ°i,955.0
+8717.0,Ã–lfus,709.0
+8719.0,GrÃ­msnes-og Grafningshreppur,196.0
+8720.0,SkeiÃ°a- og GnÃºpverjahreppur,229.0
+8721.0,BlÃ¡skÃ³gabyggÃ°,434.0
+8722.0,FlÃ³ahreppur,221.0
