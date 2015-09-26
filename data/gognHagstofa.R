@@ -32,7 +32,11 @@ skuldir_eignir_eiginfjarstada <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Efnahagur/thjodhagsreikningar/skuldastada_heimili/THJ09000.px',
                             dims=list("Fjölskyldugerð, aldur og búseta"=c('*'), "Skuldir, eignir og eiginfjárstaða"=c('*'), "Ár"=c('*')), clean=FALSE))
 
-rummetra_og_fermetraverd <- 
+rummetra_og_fermetraverd <-
+  data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/idnadur/byggingavisitala/byggingarvisitala/VIS03304.px',
+                            dims=list('Ár'=c('*'), 'Mánuður'='*', 'Eining'=c('*')), clean=FALSE))
+
+rummetra_og_fermetraverd_agg <- 
     subset(data.frame(custom_mean_aggregate(rummetra_og_fermetraverd$Rúmmetraverð, list(rummetra_og_fermetraverd$Ár))
                       , extract_column(custom_mean_aggregate(rummetra_og_fermetraverd$Fermetraverð, list(rummetra_og_fermetraverd$Ár)), "x"))
                       , Group.1 > 1994 & Group.1 < 2015)
