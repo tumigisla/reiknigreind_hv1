@@ -202,7 +202,7 @@ fjolskyldur_med_neikvaett_eigid_fe <-
                             dims=list('Fjöldi fjölskyldna með neikvætt eigið fé í fasteign'=c('*'), 'Ár'=c('*')), clean=FALSE))
 
 # Margfalda öll gildi með 1000 tþa tölurnar séu í þús.kr
-colnames(fjolskyldur_med_neikvaett_eigid_fe) <- 
+colnames(fjolskyldur_med_neikvaett_eigid_fe) <-
   c("Ár", "Fjöldi fjölskyldna með neikvætt eigið fé", "Neikvætt eigið fé fjölskyldna, samtals [þús.kr]", "Neikvætt eigið fé fjölskyldna, meðaltal[þús.kr]")
 fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, samtals [þús.kr]` <- 
   round(fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, samtals [þús.kr]` * 1000.0)
@@ -237,8 +237,12 @@ for(i in c(1,3:ncol(masterFrame))) {
 masterFrameScatter <- masterFrame[sapply(masterFrame, function(masterFrame) !any(is.na(masterFrame)))] 
 masterFrameScatter[] <- lapply(masterFrameScatter, function(x) as.numeric(as.character(x)))
 
-require(googleVis)
-scatter <- gvisScatterChart(masterFrameScatter)
+scatter = gvisScatterChart(masterFrameScatter, options=list(
+            legend="none",
+            lineWidth=2, pointSize=0,
+            title="Women", vAxis="{title:'weight (lbs)'}",
+            hAxis="{title:'height (in)'}", 
+            width=600, height=600))
 plot(scatter)
 
 # Hefur 0 í staðinn fyrir öll NA
@@ -250,7 +254,3 @@ for (i in 1:(length(masterFrame_wo_NAs) - 1))
 {
   masterFrame_wo_NAs[[i + 1]] <- lapply(masterFrame_wo_NAs[[i + 1]], function(x) {replace(x, is.na(x) | x == 'NA' | x == '.' | x == '..', 0)})
 }
-
-#Googlevis dót
-# Motion = gvisMotionChart(masterFrame, idvar="Ár", timevar="Ár")
-# plot(Motion)
