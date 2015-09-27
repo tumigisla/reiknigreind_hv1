@@ -117,3 +117,14 @@ filter_by_period <- function(dataentity, yearfrom, yearto)
 #Googlevis dót
 Motion = gvisMotionChart(skuldir_eignir_eiginfjarstada, idvar="Eignir alls", timevar="Ár")
 plot(Motion)
+
+
+#Data frame merging
+
+#lagfæringar
+
+masterFrame <- Reduce(function(x, y) merge(x, y, all=TRUE), 
+                      list(byggingarvisitala_agg, bygging_ibudarhusnaeda, fjoldi_ibuda_allt))
+
+
+masterFrame <- merge(bygging_ibudarhusnaeda, byggingarvisitala_agg, "Ár")
