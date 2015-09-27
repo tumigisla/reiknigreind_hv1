@@ -30,6 +30,7 @@ for (i in 1:fjoldi_rikisfanga)
   gistinaetur_modified <- cbind(data.frame(gistinaetur_modified, rev(gistinaetur_rikisfangs[-1])))
 }
 colnames(gistinaetur_modified) <- c("Ár", gistinaetur$Ríkisfang)
+remove(gistinaetur)
 
 launakostnadarvisitala <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/launakostnadarvisitala/VIN02500.px',
@@ -58,6 +59,7 @@ byggingarvisitala_agg <-
   )
 colnames(byggingarvisitala_agg) <- c("Ár", "Grunnur frá 1939", "Grunnur frá 1955", "Grunnur frá 1975"
                                      , "Grunnur frá 1983", "Grunnur frá 1987", "Grunnur frá 2010")
+remove(byggingarvisitala)
 
 skuldir_eignir_eiginfjarstada <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Efnahagur/thjodhagsreikningar/skuldastada_heimili/THJ09000.px',
@@ -73,6 +75,7 @@ rummetra_og_fermetraverd_agg <-
                     , extract_column(custom_aggregate(rummetra_og_fermetraverd$Fermetraverð, list(rummetra_og_fermetraverd$Ár), mean), "x"))
                     , 1994, 2014)
 colnames(rummetra_og_fermetraverd_agg) <- c("Ár", "Rúmmetraverð", "Fermetraverð")
+remove(rummetra_og_fermetraverd)
 
 fjolskyldur_med_neikvaett_eigid_fe <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Efnahagur/thjodhagsreikningar/skuldastada_heimili/THJ09008.px',
