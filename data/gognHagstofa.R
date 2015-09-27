@@ -46,7 +46,7 @@ filter_by_period <- function(dataentity, yearfrom, yearto)
 #################
 bygging_ibudarhusnaeda <-
   subset(data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/idnadur/byggingar/IDN03001.px',
-                            dims=list('Byggingarstaða'=c('*'), 'Eining'='*', 'Ár'=c('*')), clean=FALSE)), Ár >= 1994 & Ár <= 2014)
+                            dims=list('Byggingarstaða'=c('1', '2'), 'Eining'=c('*'), 'Ár'=c('*')), clean=FALSE)), Ár >= 1994 & Ár <= 2014)
 
 # Bæti við hbsv (Höfuðborgarsvæðið) í dálkaheiti
 bygging_ibudarhusnaeda_dalkanofn <- NULL
@@ -65,7 +65,7 @@ colnames(bygging_ibudarhusnaeda) <- bygging_ibudarhusnaeda_dalkanofn
 #################
 gistinaetur <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/ferdathjonusta/Gisting/GiAllir/SAM01601.px',
-                            dims=list('Ríkisfang'=c('*'), 'Landsvæði'=c('1'), 'Mánuður'=c('0'), 'Eining'=c('1'), 'Ár'=c('*')), clean=FALSE))
+                            dims=list('Ríkisfang'=c('0', '1', '2'), 'Landsvæði'=c('1'), 'Mánuður'=c('0'), 'Eining'=c('1'), 'Ár'=c('*')), clean=FALSE))
 
 # Tek út dálk sem á ekki við
 gistinaetur$Eining <- NULL
@@ -99,27 +99,16 @@ remove(gistinaetur)
 #################
 launakostnadarvisitala <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/launakostnadarvisitala/VIN02500.px',
-                            dims=list('Ársfjórðungur'=c('4'), 'Atvinnugrein'=c('*'), 'Vísitala'=c('*'), 'Eining'=c('*'), 'Ár'=c('*')), clean=FALSE))
-
-# Tek út dálka sem eiga ekki við (hér: breytingar á milli ársfjórðunga, en höfum gögnin bara á árs basis)
+                            dims=list('Ársfjórðungur'=c('4'), 'Atvinnugrein'=c('*'), 'Vísitala'=c('2'), 'Eining'=c('0'), 'Ár'=c('*')), clean=FALSE))
+# Tek út dálk sem á ekki við
 launakostnadarvisitala$Ársfjórðungur <- NULL
-launakostnadarvisitala$`Iðnaður (D) Heildarlaunakostnaður Breyting frá fyrri ársfjórðungi (%)` <- NULL
-launakostnadarvisitala$`Iðnaður (D) Heildarlaunakostnaður án óreglulegra greiðslna Breyting frá fyrri ársfjórðungi (%)` <- NULL
-launakostnadarvisitala$`Iðnaður (D) Heildarlaun Breyting frá fyrri ársfjórðungi (%)` <- NULL
-launakostnadarvisitala$`Iðnaður (D) Annar launakostnaður en laun Breyting frá fyrri ársfjórðungi (%)` <- NULL
-launakostnadarvisitala$`Verslun og ýmis viðgerðarþjónusta (G) Heildarlaunakostnaður Breyting frá fyrri ársfjórðungi (%)` <- NULL
-launakostnadarvisitala$`Verslun og ýmis viðgerðarþjónusta (G) Heildarlaunakostnaður án óreglulegra greiðslna Breyting frá fyrri ársfjórðungi (%)` <- NULL
-launakostnadarvisitala$`Byggingarstarfsemi og mannvirkjagerð (F) Heildarlaunakostnaður Breyting frá fyrri ársfjórðungi (%)` <- NULL
-launakostnadarvisitala$`Byggingarstarfsemi og mannvirkjagerð (F) Heildarlaunakostnaður án óreglulegra greiðslna Breyting frá fyrri ársfjórðungi (%)` <- NULL
-launakostnadarvisitala$`Byggingarstarfsemi og mannvirkjagerð (F) Heildarlaun Breyting frá fyrri ársfjórðungi (%)` <- NULL
-launakostnadarvisitala$`Byggingarstarfsemi og mannvirkjagerð (F) Annar launakostnaður en laun Breyting frá fyrri ársfjórðungi (%)` <- NULL
-launakostnadarvisitala$`Samgöngur og flutningar (I) Heildarlaun Breyting frá fyrri ársfjórðungi (%)` <- NULL
-launakostnadarvisitala$`Samgöngur og flutningar (I) Annar launakostnaður en laun Breyting frá fyrri ársfjórðungi (%)` <- NULL
-launakostnadarvisitala$`Samgöngur og flutningar (I) Heildarlaunakostnaður Breyting frá fyrri ársfjórðungi (%)`
-launakostnadarvisitala$`Samgöngur og flutningar (I) Heildarlaunakostnaður án óreglulegra greiðslna Breyting frá fyrri ársfjórðungi (%)` <- NULL
-launakostnadarvisitala$`Verslun og ýmis viðgerðarþjónusta (G) Heildarlaun Breyting frá fyrri ársfjórðungi (%)` <- NULL
-launakostnadarvisitala$`Samgöngur og flutningar (I) Heildarlaunakostnaður Breyting frá fyrri ársfjórðungi (%)` <- NULL
-launakostnadarvisitala$`Verslun og ýmis viðgerðarþjónusta (G) Annar launakostnaður en laun Breyting frá fyrri ársfjórðungi (%)` <- NULL
+colnames(launakostnadarvisitala) <- 
+  c("Ár", "Vísitala heildarlauna í iðnaði", "Vísitala heildarlauna í byggingarstarfsemi og mannvirkjagerð",
+    "Vísitala heildarlauna í verslun og viðgerðarþjónustu", "Vísitala heildarlauna í samgöngum og flutningum")
+
+# Sjáum að 2013 vantar alveg, tökum það út
+launakostnadarvisitala <- subset(launakostnadarvisitala, Ár < 2013)
+
 
 #################
 # Vísitala kaupmáttar launa
@@ -143,8 +132,7 @@ byggingarvisitala <-
 # Set meðaltal hvers árs inn í  nýtt data frame
 byggingarvisitala_agg <-
   filter_by_period(
-    data.frame(custom_aggregate(byggingarvisitala$`Grunnur frá 1939`, list(byggingarvisitala$Ár), mean)
-               , extract_column(custom_aggregate(byggingarvisitala$`Grunnur frá 1955`, list(byggingarvisitala$Ár), mean), "x")
+    data.frame(custom_aggregate(byggingarvisitala$`Grunnur frá 1955`, list(byggingarvisitala$Ár), mean)
                , extract_column(custom_aggregate(byggingarvisitala$`Grunnur frá 1975`, list(byggingarvisitala$Ár), mean), "x")
                , extract_column(custom_aggregate(byggingarvisitala$`Grunnur frá 1983`, list(byggingarvisitala$Ár), mean), "x")
                , extract_column(custom_aggregate(byggingarvisitala$`Grunnur frá 1987`, list(byggingarvisitala$Ár), mean), "x")
@@ -152,8 +140,8 @@ byggingarvisitala_agg <-
     ), 1994, 2014
   )
 remove(byggingarvisitala)
-
-colnames(byggingarvisitala_agg) <- c("Ár", "Byggingarvísitala, grunnur frá 1939", "Byggingarvísitala, grunnur frá 1955"
+byggingarvisitala_agg$`Byggingarvísitala, grunnur frá 1939` <- NULL
+colnames(byggingarvisitala_agg) <- c("Ár", "Byggingarvísitala, grunnur frá 1955"
                                      , "Byggingarvísitala, grunnur frá 1975", "Byggingarvísitala, grunnur frá 1983
                                      ", "Byggingarvísitala, grunnur frá 1987", "Byggingarvísitala, grunnur frá 2010")
 
@@ -215,17 +203,14 @@ fjolskyldur_med_neikvaett_eigid_fe <-
 
 # Margfalda öll gildi með 1000 tþa tölurnar séu í þús.kr
 colnames(fjolskyldur_med_neikvaett_eigid_fe) <- 
-  c("Ár", "Fjöldi fjölskyldna með neikvætt eigið fé", "Samtals [þús.kr]", "Meðaltal[þús.kr]")
-fjolskyldur_med_neikvaett_eigid_fe$`Samtals [þús.kr]` <- round(fjolskyldur_med_neikvaett_eigid_fe$`Samtals [þús.kr]` * 1000.0)
-fjolskyldur_med_neikvaett_eigid_fe$`Meðaltal[þús.kr]` <- round(fjolskyldur_med_neikvaett_eigid_fe$`Meðaltal[þús.kr]` * 1000.0)
+  c("Ár", "Fjöldi fjölskyldna með neikvætt eigið fé", "Neikvætt eigið fé fjölskyldna, samtals [þús.kr]", "Neikvætt eigið fé fjölskyldna, meðaltal[þús.kr]")
+fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, samtals [þús.kr]` <- 
+  round(fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, samtals [þús.kr]` * 1000.0)
+fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, meðaltal[þús.kr]` <- 
+  round(fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, meðaltal[þús.kr]` * 1000.0)
 
-<<<<<<< HEAD
-?gvisScatterChart
-
-=======
->>>>>>> origin/master
 #Data frame merging
-masterFrame <- Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'), 
+masterFrame <- data.frame(Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'), 
                       list(byggingarvisitala_agg,
                            bygging_ibudarhusnaeda,
                            fjoldi_ibuda_allt,
@@ -243,7 +228,7 @@ masterFrame <- Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'),
                            sumarhus_landshlutum,
                            visitala_kaupmattar_launa,
                            launakostnadarvisitala
-                           ))
+                           )))
 
 for(i in c(1,3:ncol(masterFrame))) {
   masterFrame[,i] <- as.numeric(as.character(masterFrame[,i]))
@@ -252,7 +237,8 @@ for(i in c(1,3:ncol(masterFrame))) {
 masterFrameScatter <- masterFrame[sapply(masterFrame, function(masterFrame) !any(is.na(masterFrame)))] 
 masterFrameScatter[] <- lapply(masterFrameScatter, function(x) as.numeric(as.character(x)))
 
-scatter = gvisScatterChart(masterFrameScatter)
+require(googleVis)
+scatter <- gvisScatterChart(masterFrameScatter)
 plot(scatter)
 
 # Hefur 0 í staðinn fyrir öll NA
@@ -266,6 +252,5 @@ for (i in 1:(length(masterFrame_wo_NAs) - 1))
 }
 
 #Googlevis dót
-Motion = gvisMotionChart(masterFrame, idvar="Ár", timevar="Ár")
-plot(Motion)
-
+# Motion = gvisMotionChart(masterFrame, idvar="Ár", timevar="Ár")
+# plot(Motion)

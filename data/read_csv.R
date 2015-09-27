@@ -1,3 +1,5 @@
+library(plyr)
+
 # Script sem les inn gögn frá þjóðskrá tengd íbúðarverði. Gögnin voru fengin af netsíðu þjóðskrár á
 # excel formi og breytt yfir á CSV.
 
