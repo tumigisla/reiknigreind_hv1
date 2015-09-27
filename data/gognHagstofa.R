@@ -219,10 +219,6 @@ colnames(fjolskyldur_med_neikvaett_eigid_fe) <-
 fjolskyldur_med_neikvaett_eigid_fe$`Samtals [þús.kr]` <- round(fjolskyldur_med_neikvaett_eigid_fe$`Samtals [þús.kr]` * 1000.0)
 fjolskyldur_med_neikvaett_eigid_fe$`Meðaltal[þús.kr]` <- round(fjolskyldur_med_neikvaett_eigid_fe$`Meðaltal[þús.kr]` * 1000.0)
 
-#Googlevis dót
-Motion = gvisMotionChart(skuldir_eignir_eiginfjarstada, idvar="Eignir alls", timevar="Ár")
-plot(Motion)
-
 
 #Data frame merging
 masterFrame <- Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'), 
