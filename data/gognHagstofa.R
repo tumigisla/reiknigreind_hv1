@@ -219,13 +219,8 @@ colnames(fjolskyldur_med_neikvaett_eigid_fe) <-
 fjolskyldur_med_neikvaett_eigid_fe$`Samtals [þús.kr]` <- round(fjolskyldur_med_neikvaett_eigid_fe$`Samtals [þús.kr]` * 1000.0)
 fjolskyldur_med_neikvaett_eigid_fe$`Meðaltal[þús.kr]` <- round(fjolskyldur_med_neikvaett_eigid_fe$`Meðaltal[þús.kr]` * 1000.0)
 
-<<<<<<< HEAD
-?gvisScatterChart
-
-=======
->>>>>>> origin/master
 #Data frame merging
-masterFrame <- Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'), 
+masterFrame <- data.frame(Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'), 
                       list(byggingarvisitala_agg,
                            bygging_ibudarhusnaeda,
                            fjoldi_ibuda_allt,
@@ -243,7 +238,7 @@ masterFrame <- Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'),
                            sumarhus_landshlutum,
                            visitala_kaupmattar_launa,
                            launakostnadarvisitala
-                           ))
+                           )))
 
 for(i in c(1,3:ncol(masterFrame))) {
   masterFrame[,i] <- as.numeric(as.character(masterFrame[,i]))
@@ -252,7 +247,13 @@ for(i in c(1,3:ncol(masterFrame))) {
 masterFrameScatter <- masterFrame[sapply(masterFrame, function(masterFrame) !any(is.na(masterFrame)))] 
 masterFrameScatter[] <- lapply(masterFrameScatter, function(x) as.numeric(as.character(x)))
 
-scatter = gvisScatterChart(masterFrameScatter)
+scatter = gvisScatterChart(masterFrameScatter, options=list(
+            legend="none",
+            lineWidth=2, pointSize=0,
+            title="Women", vAxis="{title:'weight (lbs)'}",
+            hAxis="{title:'height (in)'}", 
+            width=600, height=600))
+
 plot(scatter)
 
 # Hefur 0 í staðinn fyrir öll NA
