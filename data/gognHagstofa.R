@@ -6,6 +6,38 @@ require(pxweb)
 require(data.table)
 require(googleVis)
 
+# Hjálparföll
+
+# xList er þau gögn sem á að aggregate-a.
+# byList er sá listi sem aggregate-a á eftir.
+# func er nafn á því falli sem aggregate-a á með.
+custom_aggregate <- function(xList, byList, func)
+{
+  return(aggregate(numerify_list(xList)
+                   ,by=byList, FUN=func, na.rm=TRUE, na.naction=NULL))
+}
+
+# list er listi af strengjum eða tölum
+numerify_list <- function(list)
+{
+  return(as.numeric(lapply(list, function(x) {replace(x, is.na(x) | x == '.', 0)})))
+}
+
+# dataentity er t.d. data.frame eða data.table
+# columnname er nafn þess dálks sem við viljum einangra úr dataentity
+extract_column <- function(dataentity, columnname)
+{
+  return(subset(dataentity, select=c(columnname)))
+}
+
+# dataentity er t.d. data.frame eða data.table
+# yearfrom er til og með því ári sem filtera á frá
+# yearto er til og með því ári sem filtera á til
+filter_by_period <- function(dataentity, yearfrom, yearto)
+{
+  return(subset(dataentity, Group.1 >= yearfrom & Group.1 <= yearto))
+}
+
 #Sækjum gögn frá hagstofunni
 
 #################
@@ -51,7 +83,6 @@ for (i in 1:fjoldi_rikisfanga)
   }
   gistinaetur_modified <- cbind(data.frame(gistinaetur_modified, rev(gistinaetur_rikisfangs[-1])))
 }
-remove(gistinaetur)
 
 # Bæti við hbsv(Höfuðborgarsvæðið) o.fl. uppl. í dálkaheiti
 gistinaetur_dalkanofn <- NULL
@@ -60,6 +91,7 @@ for (rikisfang in gistinaetur$Ríkisfang)
   gistinaetur_dalkanofn <- c(gistinaetur_dalkanofn, paste0("Gistinætur hbsv, fjöldi. ", rikisfang))
 }
 colnames(gistinaetur_modified) <- c("Ár", gistinaetur_dalkanofn)
+remove(gistinaetur)
 
 #################
 # Launakostnaðarvísitala
@@ -166,12 +198,12 @@ rummetra_og_fermetraverd_agg <-
   filter_by_period(data.frame(custom_aggregate(rummetra_og_fermetraverd$Rúmmetraverð, list(rummetra_og_fermetraverd$Ár), mean)
                     , extract_column(custom_aggregate(rummetra_og_fermetraverd$Fermetraverð, list(rummetra_og_fermetraverd$Ár), mean), "x"))
                     , 1994, 2014)
-remove(rummetra_og_fermetraverd)
 
 # Deili öllum gildum með 1000 tþa tölurnar séu í þús.kr
-rummetra_og_fermetraverd_agg$Rúmmetraverð <- round(rummetra_og_fermetraverd_agg$Rúmmetraverð / 1000.0)
-rummetra_og_fermetraverd_agg$Fermetraverð <- round(rummetra_og_fermetraverd_agg$Fermetraverð / 1000.0)
 colnames(rummetra_og_fermetraverd_agg) <- c("Ár", "Rúmmetraverð [þús.kr]", "Fermetraverð [þús.kr]")
+rummetra_og_fermetraverd_agg$`Rúmmetraverð [þús.kr]` <- round(rummetra_og_fermetraverd_agg$`Rúmmetraverð [þús.kr]` / 1000.0)
+rummetra_og_fermetraverd_agg$`Fermetraverð [þús.kr]` <- round(rummetra_og_fermetraverd_agg$`Fermetraverð [þús.kr]` / 1000.0)
+remove(rummetra_og_fermetraverd)
 
 #################
 # Fjölskyldur með neikvætt eigið fé
@@ -182,42 +214,10 @@ fjolskyldur_med_neikvaett_eigid_fe <-
                             dims=list('Fjöldi fjölskyldna með neikvætt eigið fé í fasteign'=c('*'), 'Ár'=c('*')), clean=FALSE))
 
 # Margfalda öll gildi með 1000 tþa tölurnar séu í þús.kr
-fjolskyldur_med_neikvaett_eigid_fe$`Samtals [þús.kr]` <- round(fjolskyldur_med_neikvaett_eigid_fe$`Samtals [þús.kr]` * 1000.0)
-fjolskyldur_med_neikvaett_eigid_fe$`Meðaltal[þús.kr]` <- round(fjolskyldur_med_neikvaett_eigid_fe$`Meðaltal[þús.kr]` * 1000.0)
 colnames(fjolskyldur_med_neikvaett_eigid_fe) <- 
   c("Ár", "Fjöldi fjölskyldna með neikvætt eigið fé", "Samtals [þús.kr]", "Meðaltal[þús.kr]")
-
-# Hjálparföll
-
-# xList er þau gögn sem á að aggregate-a.
-# byList er sá listi sem aggregate-a á eftir.
-# func er nafn á því falli sem aggregate-a á með.
-custom_aggregate <- function(xList, byList, func)
-{
-  return(aggregate(numerify_list(xList)
-                   ,by=byList, FUN=func, na.rm=TRUE, na.naction=NULL))
-}
-
-# list er listi af strengjum eða tölum
-numerify_list <- function(list)
-{
-  return(as.numeric(lapply(list, function(x) {replace(x, is.na(x) | x == '.', 0)})))
-}
-
-# dataentity er t.d. data.frame eða data.table
-# columnname er nafn þess dálks sem við viljum einangra úr dataentity
-extract_column <- function(dataentity, columnname)
-{
-  return(subset(dataentity, select=c(columnname)))
-}
-
-# dataentity er t.d. data.frame eða data.table
-# yearfrom er til og með því ári sem filtera á frá
-# yearto er til og með því ári sem filtera á til
-filter_by_period <- function(dataentity, yearfrom, yearto)
-{
-  return(subset(dataentity, Group.1 >= yearfrom & Group.1 <= yearto))
-}
+fjolskyldur_med_neikvaett_eigid_fe$`Samtals [þús.kr]` <- round(fjolskyldur_med_neikvaett_eigid_fe$`Samtals [þús.kr]` * 1000.0)
+fjolskyldur_med_neikvaett_eigid_fe$`Meðaltal[þús.kr]` <- round(fjolskyldur_med_neikvaett_eigid_fe$`Meðaltal[þús.kr]` * 1000.0)
 
 #Googlevis dót
 Motion = gvisMotionChart(skuldir_eignir_eiginfjarstada, idvar="Eignir alls", timevar="Ár")
@@ -225,26 +225,14 @@ plot(Motion)
 
 
 #Data frame merging
-
-fjoldi_husa_hbsv$Ár <- as.numeric(as.character(fjoldi_husa_hbsv$Ár)) 
-
-for(i in c(1,3:ncol(makaskipti_hbsv))) {
-  makaskipti_hbsv[,i] <- as.numeric(as.character(makaskipti_hbsv[,i]))
-}
-
-makaskipti_hbsv <- aggregate(makaskipti_hbsv[,c("Ár","Samningar","Makaskipti")], list(makaskipti_hbsv$Ár), FUN = "mean")
-
-
 masterFrame <- Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'), 
                       list(byggingarvisitala_agg,
                            bygging_ibudarhusnaeda,
                            fjoldi_ibuda_allt,
-                           fjoldi_husa_hbsv,
                            fjolskyldur_med_neikvaett_eigid_fe,
                            skuldir_eignir_eiginfjarstada,
                            gistinaetur_modified,
                            makaskipti,
-                           makaskipti_hbsv,
                            rummetra_og_fermetraverd_agg,
                            hbsv_eftir_ar_all,
                            hbsv_eftir_ar_ein,
