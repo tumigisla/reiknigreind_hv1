@@ -219,6 +219,7 @@ colnames(fjolskyldur_med_neikvaett_eigid_fe) <-
 fjolskyldur_med_neikvaett_eigid_fe$`Samtals [þús.kr]` <- round(fjolskyldur_med_neikvaett_eigid_fe$`Samtals [þús.kr]` * 1000.0)
 fjolskyldur_med_neikvaett_eigid_fe$`Meðaltal[þús.kr]` <- round(fjolskyldur_med_neikvaett_eigid_fe$`Meðaltal[þús.kr]` * 1000.0)
 
+?gvisScatterChart
 
 #Data frame merging
 masterFrame <- Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'), 
@@ -240,3 +241,13 @@ masterFrame <- Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'),
                            visitala_kaupmattar_launa,
                            launakostnadarvisitala
                            ))
+
+for(i in c(1,3:ncol(masterFrame))) {
+  masterFrame[,i] <- as.numeric(as.character(masterFrame[,i]))
+}
+
+masterFrameScatter <- masterFrame[sapply(masterFrame, function(masterFrame) !any(is.na(masterFrame)))] 
+masterFrameScatter[] <- lapply(masterFrameScatter, function(x) as.numeric(as.character(x)))
+
+scatter = gvisScatterChart(masterFrameScatter)
+plot(scatter)

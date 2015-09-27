@@ -3,7 +3,7 @@ library(shiny)
 shinyServer(function(input, output) {
   datasetInput <- reactive({
     switch(input$dataset,
-           "rock" = hbsv_eftir_ar_all,
+           "rock" = masterFrame,
            "pressure" = pressure,
            "cars" = cars)})
   
