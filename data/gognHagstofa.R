@@ -122,9 +122,16 @@ plot(Motion)
 #Data frame merging
 
 #lagfæringar
+fjoldi_husa_hbsv$Ár <- as.numeric(as.character(fjoldi_husa_hbsv$Ár)) 
 
 masterFrame <- Reduce(function(x, y) merge(x, y, all=TRUE), 
-                      list(byggingarvisitala_agg, bygging_ibudarhusnaeda, fjoldi_ibuda_allt))
+                      list(byggingarvisitala_agg,
+                           bygging_ibudarhusnaeda,
+                           fjoldi_ibuda_allt,
+                           fjoldi_husa_hbsv,
+                           fjolskyldur_med_neikvaett_eigid_fe,
+                           gistinaetur_modified
+                           ))
 
 
 masterFrame <- merge(bygging_ibudarhusnaeda, byggingarvisitala_agg, "Ár")
