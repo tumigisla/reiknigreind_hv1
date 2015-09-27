@@ -8,4 +8,8 @@ shinyServer(function(input, output) {
   output$view <- renderGvis({
     gvisBubbleChart(masterFrame_wo_NAs, idvar="Ár", xvar=xaxisVariable(), yvar=yaxisVariable(), colorvar = sizeVariable(), sizevar = sizeVariable())
   })
+  
+  output$view <- renderGvis({
+    gvisBubbleChart(masterFrame_wo_NAs, idvar="Ár", xvar=xaxisVariable(), yvar=yaxisVariable(), colorvar = sizeVariable(), sizevar = sizeVariable())
+  })
 })
