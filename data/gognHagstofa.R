@@ -124,13 +124,33 @@ plot(Motion)
 #lagfæringar
 fjoldi_husa_hbsv$Ár <- as.numeric(as.character(fjoldi_husa_hbsv$Ár)) 
 
-masterFrame <- Reduce(function(x, y) merge(x, y, all=TRUE), 
+for(i in c(1,3:ncol(makaskipti_hbsv))) {
+  makaskipti_hbsv[,i] <- as.numeric(as.character(makaskipti_hbsv[,i]))
+}
+
+makaskipti_hbsv <- aggregate(makaskipti_hbsv[,c("Ár","Samningar","Makaskipti")], list(makaskipti_hbsv$Ár), FUN = "mean")
+
+
+masterFrame <- Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'), 
                       list(byggingarvisitala_agg,
                            bygging_ibudarhusnaeda,
                            fjoldi_ibuda_allt,
                            fjoldi_husa_hbsv,
                            fjolskyldur_med_neikvaett_eigid_fe,
-                           gistinaetur_modified
+                           skuldir_eignir_eiginfjarstada,
+                           gistinaetur_modified,
+                           makaskipti,
+                           makaskipti_hbsv,
+                           rummetra_og_fermetraverd_agg,
+                           hbsv_eftir_ar_all,
+                           hbsv_eftir_ar_ein,
+                           hbsv_eftir_ar_fjol,
+                           soluverd_alls,
+                           soluverd_ein,
+                           soluverd_fjol,
+                           sumarhus_landshlutum,
+                           visitala_kaupmattar_launa,
+                           launakostnadarvisitala
                            ))
 
 
