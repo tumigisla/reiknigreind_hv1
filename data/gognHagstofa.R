@@ -8,6 +8,10 @@ require(googleVis)
 
 #Sækjum gögn frá hagstofunni
 
+#################
+# Bygging íbúðarhúsnæða
+# Data variable: bygging_ibudarhusnaeda
+#################
 bygging_ibudarhusnaeda <-
   subset(data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/idnadur/byggingar/IDN03001.px',
                             dims=list('Byggingarstaða'=c('*'), 'Eining'='*', 'Ár'=c('*')), clean=FALSE)), Ár >= 1994 & Ár <= 2014)
@@ -21,6 +25,10 @@ for (dalkur in colnames(bygging_ibudarhusnaeda))
 }
 colnames(bygging_ibudarhusnaeda) <- bygging_ibudarhusnaeda_dalkanofn
 
+#################
+# Gistinætur
+# Data variable: gistinaetur_modified
+#################
 gistinaetur <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/ferdathjonusta/Gisting/GiAllir/SAM01601.px',
                             dims=list('Ríkisfang'=c('*'), 'Landsvæði'=c('1'), 'Mánuður'=c('0'), 'Eining'=c('1'), 'Ár'=c('*')), clean=FALSE))
@@ -46,6 +54,11 @@ for (rikisfang in gistinaetur$Ríkisfang)
 colnames(gistinaetur_modified) <- c("Ár", gistinaetur_dalkanofn)
 remove(gistinaetur)
 
+
+#################
+# Launakostnaðarvísitala
+# Data variable: launakostnadarvisitala
+#################
 launakostnadarvisitala <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/launakostnadarvisitala/VIN02500.px',
                             dims=list('Ársfjórðungur'=c('4'), 'Atvinnugrein'=c('*'), 'Vísitala'=c('*'), 'Eining'=c('*'), 'Ár'=c('*')), clean=FALSE))
@@ -68,6 +81,10 @@ launakostnadarvisitala$`Verslun og ýmis viðgerðarþjónusta (G) Heildarlaun B
 launakostnadarvisitala$`Samgöngur og flutningar (I) Heildarlaunakostnaður Breyting frá fyrri ársfjórðungi (%)` <- NULL
 launakostnadarvisitala$`Verslun og ýmis viðgerðarþjónusta (G) Annar launakostnaður en laun Breyting frá fyrri ársfjórðungi (%)` <- NULL
 
+#################
+# Vísitala kaupmáttar launa
+# Data variable: visitala_kaupmattar_launa
+#################
 visitala_kaupmattar_launa <-
   subset(data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Samfelag/launogtekjur/1_launavisitala/1_launavisitala/VIS04004.px',
                             dims=list('Breytingar'=c('*'), 'Mánuður'=c('12'), 'Ár'=c('*')), clean=FALSE))
@@ -75,6 +92,10 @@ visitala_kaupmattar_launa <-
         )
 colnames(visitala_kaupmattar_launa) <- c("Ár", "Vísitala kaupmáttar launa", "Árshækkun vísitölu kaupmáttar launa síðustu 12 mánuði, %")
 
+#################
+# Byggingarvísitala
+# Data variable: byggingarvisitala_agg
+#################
 byggingarvisitala <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/idnadur/byggingavisitala/byggingarvisitala/VIS03001.px',
                             dims=list('Vísitala'=c('*'), 'Mánuður'=c('*'), 'Ár'=c('*')), clean=FALSE))
@@ -94,6 +115,10 @@ colnames(byggingarvisitala_agg) <- c("Ár", "Byggingarvísitala, grunnur frá 19
                                      ", "Byggingarvísitala, grunnur frá 1987", "Byggingarvísitala, grunnur frá 2010")
 remove(byggingarvisitala)
 
+#################
+# Skuldir, eignir og eiginfjárstaða heimila
+# Data variable: skuldir_eignir_eiginfjarstada
+#################
 skuldir_eignir_eiginfjarstada <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Efnahagur/thjodhagsreikningar/skuldastada_heimili/THJ09000.px',
                             dims=list("Fjölskyldugerð, aldur og búseta"=c('15'), "Skuldir, eignir og eiginfjárstaða"=c('*'), "Ár"=c('*')), clean=FALSE))
@@ -112,6 +137,10 @@ for (i in 1:length(colnames(skuldir_eignir_eiginfjarstada)) - 1)
   skuldir_eignir_eiginfjarstada[[i + 1]] <- round(skuldir_eignir_eiginfjarstada[[i + 1]] * 1000.0)  
 }
 
+#################
+# Rúmmetra og fermetraverð í byggingarvísitöluhúsi
+# Data variable: rummetra_og_fermetraverd_agg
+#################
 rummetra_og_fermetraverd <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/idnadur/byggingavisitala/byggingarvisitala/VIS03304.px',
                             dims=list('Ár'=c('*'), 'Mánuður'='*', 'Eining'=c('*')), clean=FALSE))
@@ -125,6 +154,10 @@ rummetra_og_fermetraverd_agg$Fermetraverð <- round(rummetra_og_fermetraverd_agg
 colnames(rummetra_og_fermetraverd_agg) <- c("Ár", "Rúmmetraverð [þús.kr]", "Fermetraverð [þús.kr]")
 remove(rummetra_og_fermetraverd)
 
+#################
+# Fjölsyldur með neikvætt eigið fé
+# Data variable: fjolskyldur_med_neikvaett_eigid_fe
+#################
 fjolskyldur_med_neikvaett_eigid_fe <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Efnahagur/thjodhagsreikningar/skuldastada_heimili/THJ09008.px',
                             dims=list('Fjöldi fjölskyldna með neikvætt eigið fé í fasteign'=c('*'), 'Ár'=c('*')), clean=FALSE))
@@ -172,9 +205,33 @@ plot(Motion)
 
 #Data frame merging
 
-#lagfæringar
-dataframe_til_notkunar <-
-  list(bygging_ibudarhusnaeda, gistinaetur_modified, launakostnadarvisitala, visitala_kaupmattar_launa, byggingarvisitala_agg
-       , skuldir_eignir_eiginfjarstada, rummetra_og_fermetraverd_agg, fjolskyldur_med_neikvaett_eigid_fe)
+fjoldi_husa_hbsv$Ár <- as.numeric(as.character(fjoldi_husa_hbsv$Ár)) 
 
-masterFrame <- Reduce(function(x, y) merge(x, y, all=TRUE, by="Ár"), dataframe_til_notkunar)
+for(i in c(1,3:ncol(makaskipti_hbsv))) {
+  makaskipti_hbsv[,i] <- as.numeric(as.character(makaskipti_hbsv[,i]))
+}
+
+makaskipti_hbsv <- aggregate(makaskipti_hbsv[,c("Ár","Samningar","Makaskipti")], list(makaskipti_hbsv$Ár), FUN = "mean")
+
+
+masterFrame <- Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'), 
+                      list(byggingarvisitala_agg,
+                           bygging_ibudarhusnaeda,
+                           fjoldi_ibuda_allt,
+                           fjoldi_husa_hbsv,
+                           fjolskyldur_med_neikvaett_eigid_fe,
+                           skuldir_eignir_eiginfjarstada,
+                           gistinaetur_modified,
+                           makaskipti,
+                           makaskipti_hbsv,
+                           rummetra_og_fermetraverd_agg,
+                           hbsv_eftir_ar_all,
+                           hbsv_eftir_ar_ein,
+                           hbsv_eftir_ar_fjol,
+                           soluverd_alls,
+                           soluverd_ein,
+                           soluverd_fjol,
+                           sumarhus_landshlutum,
+                           visitala_kaupmattar_launa,
+                           launakostnadarvisitala
+                           ))
