@@ -230,9 +230,6 @@ masterFrame <- data.frame(Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'),
                            launakostnadarvisitala
                            )))
 
-#Breyting á nafni á dálk í masterframe
-colnames(masterFrame)[4] <- "Byggingarvísitala.grunnur.frá.1983"
-
 for(i in c(1,3:ncol(masterFrame))) {
   masterFrame[,i] <- as.numeric(as.character(masterFrame[,i]))
 }
