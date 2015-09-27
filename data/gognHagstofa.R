@@ -180,7 +180,7 @@ for (dalkur in colnames(skuldir_eignir_eiginfjarstada))
 colnames(skuldir_eignir_eiginfjarstada) <- skuldastada_heimila_dalkanofn
 
 # Margfalda öll gildin með 1000 tþa tölurnar séu í þús.kr
-for (i in 1:length(colnames(skuldir_eignir_eiginfjarstada)) - 1)
+for (i in 1:(length(colnames(skuldir_eignir_eiginfjarstada)) - 1))
 {
   skuldir_eignir_eiginfjarstada[[i + 1]] <- round(skuldir_eignir_eiginfjarstada[[i + 1]] * 1000.0)  
 }
