@@ -15,6 +15,8 @@ require(googleVis)
 bygging_ibudarhusnaeda <-
   subset(data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/idnadur/byggingar/IDN03001.px',
                             dims=list('Byggingarstaða'=c('*'), 'Eining'='*', 'Ár'=c('*')), clean=FALSE)), Ár >= 1994 & Ár <= 2014)
+
+# Bæti við hbsv (Höfuðborgarsvæðið) í dálkaheiti
 bygging_ibudarhusnaeda_dalkanofn <- NULL
 for (dalkur in colnames(bygging_ibudarhusnaeda))
 {
@@ -32,8 +34,11 @@ colnames(bygging_ibudarhusnaeda) <- bygging_ibudarhusnaeda_dalkanofn
 gistinaetur <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/ferdathjonusta/Gisting/GiAllir/SAM01601.px',
                             dims=list('Ríkisfang'=c('*'), 'Landsvæði'=c('1'), 'Mánuður'=c('0'), 'Eining'=c('1'), 'Ár'=c('*')), clean=FALSE))
+
+# Tek út dálk sem á ekki við
 gistinaetur$Eining <- NULL
 
+# Læt línurnar úr gamla vera dálka í nýju, breyttu data frame-i
 gistinaetur_modified <- c(1998:2014)
 fjoldi_rikisfanga <- length(gistinaetur$Ríkisfang)
 for (i in 1:fjoldi_rikisfanga)
@@ -46,14 +51,15 @@ for (i in 1:fjoldi_rikisfanga)
   }
   gistinaetur_modified <- cbind(data.frame(gistinaetur_modified, rev(gistinaetur_rikisfangs[-1])))
 }
+remove(gistinaetur)
+
+# Bæti við hbsv(Höfuðborgarsvæðið) o.fl. uppl. í dálkaheiti
 gistinaetur_dalkanofn <- NULL
 for (rikisfang in gistinaetur$Ríkisfang)
 {
   gistinaetur_dalkanofn <- c(gistinaetur_dalkanofn, paste0("Gistinætur hbsv, fjöldi. ", rikisfang))
 }
 colnames(gistinaetur_modified) <- c("Ár", gistinaetur_dalkanofn)
-remove(gistinaetur)
-
 
 #################
 # Launakostnaðarvísitala
@@ -62,6 +68,8 @@ remove(gistinaetur)
 launakostnadarvisitala <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/launakostnadarvisitala/VIN02500.px',
                             dims=list('Ársfjórðungur'=c('4'), 'Atvinnugrein'=c('*'), 'Vísitala'=c('*'), 'Eining'=c('*'), 'Ár'=c('*')), clean=FALSE))
+
+# Tek út dálka sem eiga ekki við (hér: breytingar á milli ársfjórðunga, en höfum gögnin bara á árs basis)
 launakostnadarvisitala$Ársfjórðungur <- NULL
 launakostnadarvisitala$`Iðnaður (D) Heildarlaunakostnaður Breyting frá fyrri ársfjórðungi (%)` <- NULL
 launakostnadarvisitala$`Iðnaður (D) Heildarlaunakostnaður án óreglulegra greiðslna Breyting frá fyrri ársfjórðungi (%)` <- NULL
@@ -100,6 +108,7 @@ byggingarvisitala <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/idnadur/byggingavisitala/byggingarvisitala/VIS03001.px',
                             dims=list('Vísitala'=c('*'), 'Mánuður'=c('*'), 'Ár'=c('*')), clean=FALSE))
 
+# Set meðaltal hvers árs inn í  nýtt data frame
 byggingarvisitala_agg <-
   filter_by_period(
     data.frame(custom_aggregate(byggingarvisitala$`Grunnur frá 1939`, list(byggingarvisitala$Ár), mean)
@@ -110,10 +119,11 @@ byggingarvisitala_agg <-
                , extract_column(custom_aggregate(byggingarvisitala$`Grunnur frá 2010`, list(byggingarvisitala$Ár), mean), "x")
     ), 1994, 2014
   )
+remove(byggingarvisitala)
+
 colnames(byggingarvisitala_agg) <- c("Ár", "Byggingarvísitala, grunnur frá 1939", "Byggingarvísitala, grunnur frá 1955"
                                      , "Byggingarvísitala, grunnur frá 1975", "Byggingarvísitala, grunnur frá 1983
                                      ", "Byggingarvísitala, grunnur frá 1987", "Byggingarvísitala, grunnur frá 2010")
-remove(byggingarvisitala)
 
 #################
 # Skuldir, eignir og eiginfjárstaða heimila
@@ -122,8 +132,12 @@ remove(byggingarvisitala)
 skuldir_eignir_eiginfjarstada <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Efnahagur/thjodhagsreikningar/skuldastada_heimili/THJ09000.px',
                             dims=list("Fjölskyldugerð, aldur og búseta"=c('15'), "Skuldir, eignir og eiginfjárstaða"=c('*'), "Ár"=c('*')), clean=FALSE))
+
+# Tek út dálka sem eiga ekki við
 skuldir_eignir_eiginfjarstada$`Fjölskyldugerð, aldur og búseta` <- NULL
 skuldastada_heimila_dalkanofn <- NULL
+
+# Bæti inn hbsv (Höfuðborgarsvæðið) og þús.kr í dálkaheiti
 for (dalkur in colnames(skuldir_eignir_eiginfjarstada))
 {
   nytt_dalkanafn <- dalkur 
@@ -132,6 +146,8 @@ for (dalkur in colnames(skuldir_eignir_eiginfjarstada))
   skuldastada_heimila_dalkanofn <- c(skuldastada_heimila_dalkanofn, nytt_dalkanafn)
 }
 colnames(skuldir_eignir_eiginfjarstada) <- skuldastada_heimila_dalkanofn
+
+# Margfalda öll gildin með 1000 tþa tölurnar séu í þús.kr
 for (i in 1:length(colnames(skuldir_eignir_eiginfjarstada)) - 1)
 {
   skuldir_eignir_eiginfjarstada[[i + 1]] <- round(skuldir_eignir_eiginfjarstada[[i + 1]] * 1000.0)  
@@ -145,26 +161,31 @@ rummetra_og_fermetraverd <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/idnadur/byggingavisitala/byggingarvisitala/VIS03304.px',
                             dims=list('Ár'=c('*'), 'Mánuður'='*', 'Eining'=c('*')), clean=FALSE))
 
+# Set meðaltal hvers árs inn í nýtt data frame
 rummetra_og_fermetraverd_agg <- 
   filter_by_period(data.frame(custom_aggregate(rummetra_og_fermetraverd$Rúmmetraverð, list(rummetra_og_fermetraverd$Ár), mean)
                     , extract_column(custom_aggregate(rummetra_og_fermetraverd$Fermetraverð, list(rummetra_og_fermetraverd$Ár), mean), "x"))
                     , 1994, 2014)
+remove(rummetra_og_fermetraverd)
+
+# Deili öllum gildum með 1000 tþa tölurnar séu í þús.kr
 rummetra_og_fermetraverd_agg$Rúmmetraverð <- round(rummetra_og_fermetraverd_agg$Rúmmetraverð / 1000.0)
 rummetra_og_fermetraverd_agg$Fermetraverð <- round(rummetra_og_fermetraverd_agg$Fermetraverð / 1000.0)
 colnames(rummetra_og_fermetraverd_agg) <- c("Ár", "Rúmmetraverð [þús.kr]", "Fermetraverð [þús.kr]")
-remove(rummetra_og_fermetraverd)
 
 #################
-# Fjölsyldur með neikvætt eigið fé
+# Fjölskyldur með neikvætt eigið fé
 # Data variable: fjolskyldur_med_neikvaett_eigid_fe
 #################
 fjolskyldur_med_neikvaett_eigid_fe <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Efnahagur/thjodhagsreikningar/skuldastada_heimili/THJ09008.px',
                             dims=list('Fjöldi fjölskyldna með neikvætt eigið fé í fasteign'=c('*'), 'Ár'=c('*')), clean=FALSE))
-colnames(fjolskyldur_med_neikvaett_eigid_fe) <- 
-  c("Ár", "Fjöldi fjölskyldna með neikvætt eigið fé", "Samtals [þús.kr]", "Meðaltal[þús.kr]")
+
+# Margfalda öll gildi með 1000 tþa tölurnar séu í þús.kr
 fjolskyldur_med_neikvaett_eigid_fe$`Samtals [þús.kr]` <- round(fjolskyldur_med_neikvaett_eigid_fe$`Samtals [þús.kr]` * 1000.0)
 fjolskyldur_med_neikvaett_eigid_fe$`Meðaltal[þús.kr]` <- round(fjolskyldur_med_neikvaett_eigid_fe$`Meðaltal[þús.kr]` * 1000.0)
+colnames(fjolskyldur_med_neikvaett_eigid_fe) <- 
+  c("Ár", "Fjöldi fjölskyldna með neikvætt eigið fé", "Samtals [þús.kr]", "Meðaltal[þús.kr]")
 
 # Hjálparföll
 
