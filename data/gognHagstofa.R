@@ -237,22 +237,6 @@ for(i in c(1,3:ncol(masterFrame))) {
 masterFrameScatter <- masterFrame[sapply(masterFrame, function(masterFrame) !any(is.na(masterFrame)))] 
 masterFrameScatter[] <- lapply(masterFrameScatter, function(x) as.numeric(as.character(x)))
 
-scatter = gvisScatterChart(masterFrameScatter, options=list(
-            legend="none",
-            lineWidth=2, pointSize=0,
-            title="scatter", vAxis="{title:'þús. kr.'}",
-            hAxis="{title:'ár'}", 
-            width=600, height=600))
-plot(scatter)
-
-scatterSkuldirEignirEiginfjarstada = gvisScatterChart(skuldir_eignir_eiginfjarstada, options=list(
-            legend="none",
-            lineWidth=2, pointSize=0,
-            title="Skuldir, eignir og eiginfjárstaða heimila á HBS", vAxis="{title:'þús. kr.'}",
-            hAxis="{title:'ár'}", 
-            width=600, height=600))
-plot(scatterSkuldirEignirEiginfjarstada)
-
 
 # Hefur 0 í staðinn fyrir öll NA
 masterFrame_wo_NAs <- masterFrame
