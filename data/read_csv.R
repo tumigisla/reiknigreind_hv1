@@ -21,8 +21,15 @@ extract_column <- function(dataentity, columnname)
 
 # Verð eftir ári (WELL FORMATED).
 hbsv_eftir_ar_all <- read.csv("csv/hbsv_eftir_ár_allt_saman_201502260.csv", header = TRUE, skip=1, nrows=34, encoding = "UTF-8")
+hbsv_eftir_ar_all <- subset(hbsv_eftir_ar_all, hbsv_eftir_ar_all$Ár >= 1994)
+hbsv_eftir_ar_all <- hbsv_eftir_ar_all[, c(1, 2, 3, 4, 6)]
+hbsv_eftir_ar_all$Kaupverð.á.fermeter..krónur. <- round(hbsv_eftir_ar_all$Kaupverð.á.fermeter..krónur./1000.0)
+colnames(hbsv_eftir_ar_all) <- c('Ár', 'Fjöldi seldra eigna', 'Meðal flatarmál seldra eigna [m2]', "Meðal kaupverð seldra eigna [þús. kr]",
+                                 'Kaupverð á fermetra eigna [þús. kr.]')
 hbsv_eftir_ar_fjol <- read.csv("csv/hbsv_eftir_ár_allt_saman_201502261.csv", header = TRUE, skip=1, nrows = 34, encoding = "UTF-8")
+hbsv_eftir_ar_fjol <- subset(hbsv_eftir_ar_fjol, hbsv_eftir_ar_fjol$Ár >= 1994)
 hbsv_eftir_ar_ein <- read.csv("csv/hbsv_eftir_ár_allt_saman_201502262.csv", header = TRUE, skip=1, nrows=34, encoding = "UTF-8")
+hbsv_eftir_ar_ein <- subset(hbsv_eftir_ar_ein, hbsv_eftir_ar_ein$Ár >= 1994)
 # Fjöldi íbúða.
 landshlutar <- read.csv("csv/Landshlutar_201502250.csv", header=TRUE, skip=1, encoding = "UTF-8")
 fjoldi_husa_hbsv <- landshlutar[7:27,]
@@ -41,6 +48,7 @@ makaskipti_2006 <- subset(data.frame(custom_aggregate(makaskipti_hbsv_1$Makaskip
                                 Group.1 >= 1994)
 colnames(makaskipti_2006) <- c('Ár', 'Makaskipti', 'Samningar')
 makaskipti <- rbind(makaskipti, makaskipti_2006)
+remove(makaskipti_2006)
 makaskipti$Ár <- as.integer(makaskipti$Ár)
 makaskipti <- subset(data.frame(custom_aggregate(makaskipti$Makaskipti, list(makaskipti$Ár), sum),
                                 extract_column(custom_aggregate(makaskipti$Samningar, list(makaskipti$Ár), sum), 'x')),
@@ -56,6 +64,7 @@ for(i in 1:21){
   fjoldi_ibuda_temp <- subset(fjoldi_ibuda_temp, fjoldi_ibuda_temp$Sveitarfélagsnúmer < 2000)
   fjoldi_ibuda_hbsv$x[21 - i + 1] <- years[i]
   fjoldi_ibuda_hbsv$y[21 - i + 1] <- sum(fjoldi_ibuda_temp$Fjöldi.íbúða, na.rm=TRUE)
+  remove(fjoldi_ibuda_temp)
 }
 colnames(fjoldi_ibuda_hbsv) <- c('Ár', 'Fjöldi')
 # Söluverð
@@ -66,14 +75,4 @@ soluverd_ein <- read.csv("csv/Söluverð_á_nýjum_íbúðum_201502252.csv", hea
 sumarhus_landshlutum <- read.csv("csv/Sumarhús_e_landshlutum_24_08_20150.csv", header=TRUE, skip=2, nrows=18, encoding = "UTF-8")
 colnames(sumarhus_landshlutum)[1] <- "Ár"
 
-
-#Interesting (Few years)
-leiguverd <- read.csv('csv/arid2014leiguverd_260220150.csv', header=TRUE, skip=3, dec=',', as.is=TRUE, encoding = "UTF-8")
-# Skipting eftir gerðum (Few years)
-fjoldi_ibuda_gerd_2014 <- read.csv("csv/Skipting_ibuda_eftir_svfn_og_gerd_201508240.csv", header=TRUE, skip=1, encoding = "UTF-8")
-fjoldi_ibuda_gerd_2013 <- read.csv("csv/Skipting_ibuda_eftir_svfn_og_gerd_201508241.csv", header=TRUE, skip=1, encoding = "UTF-8")
-fjoldi_ibuda_gerd_2012 <- read.csv("csv/Skipting_ibuda_eftir_svfn_og_gerd_201508242.csv", header=TRUE, skip=1, encoding = "UTF-8")
-fjoldi_ibuda_gerd_2011 <- read.csv("csv/Skipting_ibuda_eftir_svfn_og_gerd_201508243.csv", header=TRUE, skip=1, encoding = "UTF-8")
-# Verð eftir bæjarfélagi(Exists in other tables)
-verd_baer <- read.csv("csv/verd_eftir_bæjum_frá19900.csv", header=TRUE, skip=1, encoding = "UTF-8")
 setwd(original_dir)
