@@ -9,6 +9,6 @@ shinyServer(function(input, output) {
   
   output$view <- renderGvis({
     masterFrame$key <- rep(2015, 21)
-    gvisMotionChart(masterFrame, idvar="Ár", timevar = "key")
+    gvisBubbleChart(gistinaetur_modified, idvar="Ár", timevar = "key")
   })
 })

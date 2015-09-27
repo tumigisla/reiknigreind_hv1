@@ -219,7 +219,6 @@ colnames(fjolskyldur_med_neikvaett_eigid_fe) <-
 fjolskyldur_med_neikvaett_eigid_fe$`Samtals [þús.kr]` <- round(fjolskyldur_med_neikvaett_eigid_fe$`Samtals [þús.kr]` * 1000.0)
 fjolskyldur_med_neikvaett_eigid_fe$`Meðaltal[þús.kr]` <- round(fjolskyldur_med_neikvaett_eigid_fe$`Meðaltal[þús.kr]` * 1000.0)
 
-
 #Data frame merging
 masterFrame <- Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'), 
                       list(byggingarvisitala_agg,
@@ -240,3 +239,17 @@ masterFrame <- Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'),
                            visitala_kaupmattar_launa,
                            launakostnadarvisitala
                            ))
+
+# Hefur 0 í staðinn fyrir öll NA
+masterFrame_wo_NAs <- masterFrame
+for(i in c(1,3:ncol(masterFrame_wo_NAs))) {
+  masterFrame_wo_NAs[,i] <- suppressWarnings(as.numeric(as.character(masterFrame_wo_NAs[,i])))
+}
+for (i in 1:(length(masterFrame_wo_NAs) - 1))
+{
+  masterFrame_wo_NAs[[i + 1]] <- lapply(masterFrame_wo_NAs[[i + 1]], function(x) {replace(x, is.na(x) | x == 'NA' | x == '.' | x == '..', 0)})
+}
+
+#Googlevis dót
+Motion = gvisMotionChart(masterFrame, idvar="Ár", timevar="Ár")
+plot(Motion)
