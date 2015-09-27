@@ -8,6 +8,7 @@ shinyServer(function(input, output) {
            "cars" = cars)})
   
   output$view <- renderGvis({
-    gvisBubbleChart(datasetInput(), idvar="Ár", xvar="Meðaltals.flatarmál.mengis..m2.", yvar="Kaupverð.á.fermeter..krónur.", sizevar="Fjöldi.mengis", options=list(width=1000, height=1000))
+    masterFrame$key <- rep(2015, 21)
+    gvisBubbleChart(gistinaetur_modified, idvar="Ár", timevar = "key")
   })
 })
