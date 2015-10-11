@@ -33,7 +33,7 @@ hbsv_eftir_ar_all <- hbsv_eftir_ar_all[, c(1, 2, 3, 4, 6)]
 # Endurskala fermetraverð í þúsundir króna, til að samræma við önnur gögn í krónutölu.
 hbsv_eftir_ar_all$Kaupverð.á.fermeter..krónur. <- round(hbsv_eftir_ar_all$Kaupverð.á.fermeter..krónur./1000.0)
 # Endurskýra dálkanöfn til útskýringa á innihaldi.
-colnames(hbsv_eftir_ar_all) <- c('Ár', 'Fjöldi seldra íbúðahúsnæða á HBSV.', 'Meðal flatarmál seldra íbúðarhúsnæða á HBSV. [m2]',
+colnames(hbsv_eftir_ar_all) <- c('Ár', 'Fjöldi seldra íbúðahúsnæða á HBSV.', 'Meðal flatarmál seldra íbúðarhúsnæða á HBSV. [m\U00B2]',
                                  "Meðal kaupverð íbúðarhúsnæðis á HBSV. [þús. kr]", 'Fermetraverð á íbúðarhúsnæði á HBSV. [þús. kr.]')
 
 ###############
@@ -46,7 +46,7 @@ hbsv_eftir_ar_fjol <- read.csv("csv/hbsv_eftir_ár_allt_saman_201502261.csv", he
 hbsv_eftir_ar_fjol <- subset(hbsv_eftir_ar_fjol, hbsv_eftir_ar_fjol$Ár >= 1994)
 hbsv_eftir_ar_fjol <- hbsv_eftir_ar_fjol[, c(1, 2, 3, 4, 6)]
 hbsv_eftir_ar_fjol$Kaupverð.fjölbýlis.á.fermeter..krónur. <- round(hbsv_eftir_ar_fjol$Kaupverð.fjölbýlis.á.fermeter..krónur./1000.0)
-colnames(hbsv_eftir_ar_fjol) <- c('Ár', 'Fjöldi seldra íbúða í fjölbýli á HBSV.', 'Meðal flatarmál seldra íbúða í fjölbýli á HBSV. [m2]',
+colnames(hbsv_eftir_ar_fjol) <- c('Ár', 'Fjöldi seldra íbúða í fjölbýli á HBSV.', 'Meðal flatarmál seldra íbúða í fjölbýli á HBSV. [m\U00B2]',
                                   "Meðal kaupverð íbúða í fjölbýli á HBSV. [þús. kr]", 'Fermetraverð á íbúðum í fjölbýli á HBSV. [þús. kr.]')
 
 ###############
@@ -58,7 +58,7 @@ hbsv_eftir_ar_ein <- read.csv("csv/hbsv_eftir_ár_allt_saman_201502262.csv", hea
 hbsv_eftir_ar_ein <- subset(hbsv_eftir_ar_ein, hbsv_eftir_ar_ein$Ár >= 1994)
 hbsv_eftir_ar_ein <- hbsv_eftir_ar_ein[, c(1, 2, 3, 4, 6)]
 hbsv_eftir_ar_ein$Kaupverð.sérbýlis.á.fermeter..krónur. <- round(hbsv_eftir_ar_ein$Kaupverð.sérbýlis.á.fermeter..krónur./1000.0)
-colnames(hbsv_eftir_ar_ein) <- c('Ár', 'Fjöldi seldra íbúða í sérbýli á HBSV.', 'Meðal flatarmál seldra íbúða í sérbýli á HBSV. [m2]',
+colnames(hbsv_eftir_ar_ein) <- c('Ár', 'Fjöldi seldra íbúða í sérbýli á HBSV.', 'Meðal flatarmál seldra íbúða í sérbýli á HBSV. [m\U00B2]',
                                  "Meðal kaupverð seldra íbúða í sérbýli á HBSV. [þús. kr]", 'Fermetraverð íbúða í sérbýli á HBSV. [þús. kr.]')
 
 ###############

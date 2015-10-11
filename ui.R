@@ -11,7 +11,6 @@ shinyUI(pageWithSidebar(
                 choice = colnames(masterFrame_wo_NAs)[2:length(colnames(masterFrame_wo_NAs))])
   ),
     mainPanel(
-    htmlOutput("view"),
-    htmlOutput("view2")
+    htmlOutput("view")
   )
 ))

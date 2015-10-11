@@ -50,14 +50,8 @@ bygging_ibudarhusnaeda <-
 
 # Bæti við hbsv (Höfuðborgarsvæðið) í dálkaheiti
 bygging_ibudarhusnaeda_dalkanofn <- NULL
-for (dalkur in colnames(bygging_ibudarhusnaeda))
-{
-  nytt_dalkanafn <- dalkur
-  if (nytt_dalkanafn != "Ár")
-    nytt_dalkanafn <- paste0(nytt_dalkanafn, ", hbsv")
-  bygging_ibudarhusnaeda_dalkanofn <- c(bygging_ibudarhusnaeda_dalkanofn, nytt_dalkanafn)
-}
-colnames(bygging_ibudarhusnaeda) <- bygging_ibudarhusnaeda_dalkanofn
+colnames(bygging_ibudarhusnaeda) <- c('Ár', 'Fjöldi íbúðahúsnæða í byggingu á HBSV.', 'Fermetrar af íbúðahúsnæði í byggingu á HBSV. [þús. m\U00B2]', 'Fjöldi nýbyggða íbúðahúsnæða á HBSV.',
+                                      'Fermetrar af nýbyggðu íbúðarhúsnæði á HBSV. [þús. m\U00B2]')
 
 #################
 # Gistinætur
@@ -86,9 +80,9 @@ for (i in 1:fjoldi_rikisfanga)
 
 # Bæti við hbsv(Höfuðborgarsvæðið) o.fl. uppl. í dálkaheiti
 gistinaetur_dalkanofn <- NULL
-for (rikisfang in gistinaetur$Ríkisfang)
+for (rikisfang in c('Allir', 'Íslendingar', 'Útlendingar'))
 {
-  gistinaetur_dalkanofn <- c(gistinaetur_dalkanofn, paste0("Gistinætur hbsv, fjöldi. ", rikisfang))
+  gistinaetur_dalkanofn <- c(gistinaetur_dalkanofn, paste0("Fjöldi Gistinátta á HBSV, ", rikisfang))
 }
 colnames(gistinaetur_modified) <- c("Ár", gistinaetur_dalkanofn)
 remove(gistinaetur)
@@ -142,7 +136,8 @@ remove(byggingarvisitala)
 byggingarvisitala_agg$`Byggingarvísitala, grunnur frá 1939` <- NULL
 colnames(byggingarvisitala_agg) <- c("Ár", "Byggingarvísitala, grunnur frá 1955"
                                      , "Byggingarvísitala, grunnur frá 1975", "Byggingarvísitala, grunnur frá 1983
-                                     ", "Byggingarvísitala, grunnur frá 1987", "Byggingarvísitala, grunnur frá 2010")
+                                     ", "Byggingarvísitala", "Byggingarvísitala, grunnur frá 2010")
+byggingarvisitala_agg <- byggingarvisitala_agg[c(1,4)]
 
 #################
 # Skuldir, eignir og eiginfjárstaða heimila
@@ -187,9 +182,9 @@ rummetra_og_fermetraverd_agg <-
                     , 1994, 2014)
 
 # Deili öllum gildum með 1000 tþa tölurnar séu í þús.kr
-colnames(rummetra_og_fermetraverd_agg) <- c("Ár", "Rúmmetraverð [þús.kr]", "Fermetraverð [þús.kr]")
-rummetra_og_fermetraverd_agg$`Rúmmetraverð [þús.kr]` <- round(rummetra_og_fermetraverd_agg$`Rúmmetraverð [þús.kr]` / 1000.0)
-rummetra_og_fermetraverd_agg$`Fermetraverð [þús.kr]` <- round(rummetra_og_fermetraverd_agg$`Fermetraverð [þús.kr]` / 1000.0)
+colnames(rummetra_og_fermetraverd_agg) <- c("Ár", "Rúmmetraverð á vísítöluhúsi á HBSV. [þús.kr]", "Fermetraverð á vísitöluhúsi á HBSV. [þús.kr]")
+rummetra_og_fermetraverd_agg$`Rúmmetraverð á vísítöluhúsi á HBSV. [þús.kr]` <- round(rummetra_og_fermetraverd_agg$`Rúmmetraverð á vísítöluhúsi á HBSV. [þús.kr]` / 1000.0)
+rummetra_og_fermetraverd_agg$`Fermetraverð á vísitöluhúsi á HBSV. [þús.kr]` <- round(rummetra_og_fermetraverd_agg$`Fermetraverð á vísitöluhúsi á HBSV. [þús.kr]` / 1000.0)
 remove(rummetra_og_fermetraverd)
 
 #################
@@ -221,6 +216,7 @@ masterFrame <- data.frame(Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'),
                            soluverd_alls,
                            soluverd_ein,
                            soluverd_fjol,
+                           byggingarvisitala_agg,
                            sumarhus_landshlutum
                            )), check.names=FALSE)
 
