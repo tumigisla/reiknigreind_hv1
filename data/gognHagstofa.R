@@ -137,7 +137,7 @@ byggingarvisitala_agg$`Byggingarvísitala, grunnur frá 1939` <- NULL
 colnames(byggingarvisitala_agg) <- c("Ár", "Byggingarvísitala, grunnur frá 1955"
                                      , "Byggingarvísitala, grunnur frá 1975", "Byggingarvísitala, grunnur frá 1983
                                      ", "Byggingarvísitala", "Byggingarvísitala, grunnur frá 2010")
-byggingarvisitala_agg <- byggingarvisitala_agg[c(1,4)]
+byggingarvisitala_agg <- byggingarvisitala_agg[c(1,5)]
 
 #################
 # Skuldir, eignir og eiginfjárstaða heimila

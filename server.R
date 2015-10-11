@@ -7,7 +7,7 @@ shinyServer(function(input, output) {
   colorVariable <- reactive({input$coloraxis})
   
   output$view <- renderGvis({
-    options = list(width=1000, heighxt=1000)
-    gvisBubbleChart(masterFrame_wo_NAs, idvar="Ár", xvar=xaxisVariable(), yvar=yaxisVariable(), colorvar = "Ár", sizevar = sizeVariable(), options=options)
+    options = list(width=1000, height=1000, hAxis=paste0('{title: "', xaxisVariable(),'"}'), vAxis = paste0('{title: "', yaxisVariable(), '"}'))
+    gvisBubbleChart(masterFrame, idvar="Ár", xvar=xaxisVariable(), yvar=yaxisVariable(), colorvar = "Ár", sizevar = sizeVariable(), options=options)
   })
 })

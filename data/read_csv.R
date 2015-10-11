@@ -84,13 +84,14 @@ makaskipti_2006 <- subset(data.frame(custom_aggregate(makaskipti_hbsv_1$Makaskip
                                 extract_column(custom_aggregate(makaskipti_hbsv_1$Lausafé, list(makaskipti_hbsv_1$Ár), sum), 'x')),
                                 Group.1 >= 1994)
 colnames(makaskipti_2006) <- c('Ár', 'Makaskipti', 'Samningar', 'Lausafé')
-# Sameina gögnin. Upplýsingar um íbúðir keyptar með lausafé vantar fyrir ár fyrir 2006, svo set það sem 0.
+# Sameina gögnin. Upplýsingar um íbúðir keyptar með lausafé vantar fyrir ár fyrir 2006.
 makaskipti <- rbind.fill(makaskipti, makaskipti_2006)
+print(makaskipti)
 makaskipti$Ár <- as.integer(makaskipti$Ár)
 makaskipti <- subset(data.frame(custom_aggregate(makaskipti$Makaskipti, list(makaskipti$Ár), sum),
                                 extract_column(custom_aggregate(makaskipti$Samningar, list(makaskipti$Ár), sum), 'x'),
-                                extract_column(custom_aggregate(makaskipti$Lausafé, list(makaskipti$Ár), sum), 'x')),
-                     Group.1 >= 1994)
+                                extract_column(aggregate(as.numeric(makaskipti$Lausafé), list(makaskipti$Ár), FUN=sum, na.rm=FALSE), 'x')),
+                                Group.1 >= 1994)
 colnames(makaskipti) <- c('Ár', 'Makaskipti með íbúðarhúsnæði', 'Fjöldi seldra íbúðarhúsnæða', "Fjöldi íbúðarhúsnæðis selt í lausafé")
 # Eyði út millitöflum.
 remove(makaskipti_2006)
