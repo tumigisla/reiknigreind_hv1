@@ -238,5 +238,5 @@ for(i in c(1,3:ncol(masterFrame_wo_NAs))) {
 }
 for (i in 1:(length(masterFrame_wo_NAs) - 1))
 {
-  masterFrame_wo_NAs[[i + 1]] <- lapply(masterFrame_wo_NAs[[i + 1]], function(x) {replace(x, is.na(x) | x == 'NA' | x == '.' | x == '..', 0)})
+  masterFrame_wo_NAs[[i + 1]] <- lapply(masterFrame_wo_NAs[[i + 1]], function(x) {replace(x, is.na(x) | x == 'NA' | x == '.' | x == '..', -2147483647)})
 } 

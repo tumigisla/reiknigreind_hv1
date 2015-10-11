@@ -1,17 +1,14 @@
 shinyUI(pageWithSidebar(
-  headerPanel("Example 1: scatter chart"),
+  headerPanel("Fasteignaverð og áhrifaþættir þess"),
   sidebarPanel(
-    selectInput("xaxis", "Choose Variable for X-axis:",
-                choice = colnames(masterFrame_wo_NAs)[2:length(colnames(masterFrame_wo_NAs))]),
-    selectInput("yaxis", "Choose Variable for Y-axis:", 
-                choices = colnames(masterFrame_wo_NAs)[2:length(colnames(masterFrame_wo_NAs))]),
-    selectInput("sizeaxis", "Choose Variable for Bubble Size:",
-                choice = colnames(masterFrame_wo_NAs)[2:length(colnames(masterFrame_wo_NAs))]),
-    selectInput('coloraxis', "Choose Variable for Color axis:",
-                choice = colnames(masterFrame_wo_NAs)[2:length(colnames(masterFrame_wo_NAs))])
+    selectInput("xaxis", "Veldu breytu fyrir x-ás",
+                choice = colnames(masterFrame)[2:length(colnames(masterFrame))]),
+    selectInput("yaxis", "Veldu breytu fyrir y-ás", 
+                choices = colnames(masterFrame)[2:length(colnames(masterFrame))]),
+    selectInput("sizeaxis", "Veldu breytu fyrir kúlustærð",
+                choice = colnames(masterFrame)[2:length(colnames(masterFrame))])
   ),
     mainPanel(
-    htmlOutput("view"),
-    htmlOutput("view2")
+    htmlOutput("view")
   )
 ))
