@@ -228,7 +228,7 @@ masterFrame <- data.frame(Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'),
                            sumarhus_landshlutum,
                            visitala_kaupmattar_launa,
                            launakostnadarvisitala
-                           )))
+                           )), check.names = FALSE)
 
 for(i in c(1,3:ncol(masterFrame))) {
   masterFrame[,i] <- as.numeric(as.character(masterFrame[,i]))
@@ -236,14 +236,6 @@ for(i in c(1,3:ncol(masterFrame))) {
 
 masterFrameScatter <- masterFrame[sapply(masterFrame, function(masterFrame) !any(is.na(masterFrame)))] 
 masterFrameScatter[] <- lapply(masterFrameScatter, function(x) as.numeric(as.character(x)))
-
-scatter = gvisScatterChart(masterFrameScatter, options=list(
-            legend="none",
-            lineWidth=2, pointSize=0,
-            title="Women", vAxis="{title:'weight (lbs)'}",
-            hAxis="{title:'height (in)'}", 
-            width=600, height=600))
-plot(scatter)
 
 # Hefur 0 í staðinn fyrir öll NA
 masterFrame_wo_NAs <- masterFrame
@@ -253,4 +245,4 @@ for(i in c(1,3:ncol(masterFrame_wo_NAs))) {
 for (i in 1:(length(masterFrame_wo_NAs) - 1))
 {
   masterFrame_wo_NAs[[i + 1]] <- lapply(masterFrame_wo_NAs[[i + 1]], function(x) {replace(x, is.na(x) | x == 'NA' | x == '.' | x == '..', 0)})
-}
+} 
