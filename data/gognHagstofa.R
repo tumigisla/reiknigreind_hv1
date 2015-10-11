@@ -222,7 +222,7 @@ masterFrame <- data.frame(Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'),
                            soluverd_ein,
                            soluverd_fjol,
                            sumarhus_landshlutum
-                           )))
+                           )), check.names=FALSE)
 
 for(i in c(1,3:ncol(masterFrame))) {
   masterFrame[,i] <- as.numeric(as.character(masterFrame[,i]))
