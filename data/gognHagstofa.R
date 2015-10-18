@@ -46,7 +46,7 @@ filter_by_period <- function(dataentity, yearfrom, yearto)
 #################
 bygging_ibudarhusnaeda <-
   subset(data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/idnadur/byggingar/IDN03001.px',
-                            dims=list('Byggingarstaða'=c('1', '2'), 'Eining'=c('*'), 'Ár'=c('*')), clean=FALSE)), Ár >= 1994 & Ár <= 2014)
+                                   dims=list('Byggingarstaða'=c('1', '2'), 'Eining'=c('*'), 'Ár'=c('*')), clean=FALSE)), Ár >= 1994 & Ár <= 2014)
 
 # Bæti við hbsv (Höfuðborgarsvæðið) í dálkaheiti
 bygging_ibudarhusnaeda_dalkanofn <- NULL
@@ -93,7 +93,7 @@ remove(gistinaetur)
 #################
 launakostnadarvisitala <-
   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/launakostnadur/launakostnadureldra/VIN02500.px',
-                           dims=list('Ársfjórðungur'=c('4'), 'Atvinnugrein'=c('*'), 'Vísitala'=c('2'), 'Eining'=c('0'), 'Ár'=c('*')), clean=FALSE))
+                            dims=list('Ársfjórðungur'=c('4'), 'Atvinnugrein'=c('*'), 'Vísitala'=c('2'), 'Eining'=c('0'), 'Ár'=c('*')), clean=FALSE))
 # Tek út dálk sem á ekki við
 launakostnadarvisitala$Ársfjórðungur <- NULL
 colnames(launakostnadarvisitala) <- 
@@ -109,9 +109,9 @@ launakostnadarvisitala <- subset(launakostnadarvisitala, Ár < 2013)
 #################
 visitala_kaupmattar_launa <-
   subset(data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Samfelag/launogtekjur/1_launavisitala/1_launavisitala/VIS04004.px',
-                            dims=list('Breytingar'=c('*'), 'Mánuður'=c('12'), 'Ár'=c('*')), clean=FALSE))
+                                   dims=list('Breytingar'=c('*'), 'Mánuður'=c('12'), 'Ár'=c('*')), clean=FALSE))
          , Ár >= 1994 & Ár <= 2014, select=c("Ár", "Vísitala", "Árshækkun síðustu 12 mánuði, %")
-        )
+  )
 colnames(visitala_kaupmattar_launa) <- c("Ár", "Vísitala kaupmáttar launa", "Árshækkun vísitölu kaupmáttar launa síðustu 12 mánuði, %")
 visitala_kaupmattar_launa$`Árshækkun vísitölu kaupmáttar launa síðustu 12 mánuði, %` <- NULL
 
@@ -181,8 +181,8 @@ rummetra_og_fermetraverd <-
 # Set meðaltal hvers árs inn í nýtt data frame
 rummetra_og_fermetraverd_agg <- 
   filter_by_period(data.frame(custom_aggregate(rummetra_og_fermetraverd$Rúmmetraverð, list(rummetra_og_fermetraverd$Ár), mean)
-                    , extract_column(custom_aggregate(rummetra_og_fermetraverd$Fermetraverð, list(rummetra_og_fermetraverd$Ár), mean), "x"))
-                    , 1994, 2014)
+                              , extract_column(custom_aggregate(rummetra_og_fermetraverd$Fermetraverð, list(rummetra_og_fermetraverd$Ár), mean), "x"))
+                   , 1994, 2014)
 
 # Deili öllum gildum með 1000 tþa tölurnar séu í þús.kr
 colnames(rummetra_og_fermetraverd_agg) <- c("Ár", "Rúmmetraverð á vísítöluhúsi á HBSV. [þús.kr]", "Fermetraverð á vísitöluhúsi á HBSV. [þús.kr]")
@@ -200,22 +200,22 @@ fjolskyldur_med_neikvaett_eigid_fe <-
 
 # Margfalda öll gildi með 1000 tþa tölurnar séu í þús.kr
 colnames(fjolskyldur_med_neikvaett_eigid_fe) <-
-  c("Ár", "Fjöldi fjölskyldna með neikvætt eigið fé", "Neikvætt eigið fé fjölskyldna, samtals [þús.kr]", "Neikvætt eigið fé fjölskyldna, meðaltal [þús.kr]")
+  c("Ár", "Fjöldi fjölskyldna með neikvætt eigið fé í fasteign", "Neikvætt eigið fé fjölskyldna, samtals [þús.kr]", "Meðaltalið fyrir neikvætt eigið fé í fasteign [þús.kr]")
 fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, samtals [þús.kr]` <- NULL
 
-fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, meðaltal [þús.kr]` <- 
-  abs(round(fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, meðaltal [þús.kr]` * 1000.0))
+fjolskyldur_med_neikvaett_eigid_fe$`Meðaltalið fyrir neikvætt eigið fé í fasteign [þús.kr]` <- 
+  abs(round(fjolskyldur_med_neikvaett_eigid_fe$`Meðaltalið fyrir neikvætt eigið fé í fasteign [þús.kr]` * 1000.0))
 
 hagstofaFrame <- data.frame(Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'),
-                                 list(byggingarvisitala_agg,
-                                      bygging_ibudarhusnaeda,
-                                      fjolskyldur_med_neikvaett_eigid_fe,
-                                      skuldir_eignir_eiginfjarstada,
-                                      gistinaetur_modified,
-                                      rummetra_og_fermetraverd_agg,
-                                      visitala_kaupmattar_launa,
-                                      launakostnadarvisitala
-                                 )), check.names = FALSE)
+                                   list(byggingarvisitala_agg,
+                                        bygging_ibudarhusnaeda,
+                                        fjolskyldur_med_neikvaett_eigid_fe,
+                                        skuldir_eignir_eiginfjarstada,
+                                        gistinaetur_modified,
+                                        rummetra_og_fermetraverd_agg,
+                                        visitala_kaupmattar_launa,
+                                        launakostnadarvisitala
+                                   )), check.names = FALSE)
 
 #Data frame merging
 masterFrame <- data.frame(Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'), 
@@ -237,7 +237,7 @@ masterFrame <- data.frame(Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'),
                                       visitala_kaupmattar_launa,
                                       launakostnadarvisitala
                                  )), check.names = FALSE)
-                      
+
 for(i in c(1,3:ncol(masterFrame))) {
   masterFrame[,i] <- as.numeric(as.character(masterFrame[,i]))
 }
@@ -258,18 +258,18 @@ for (i in 1:(length(masterFrame_wo_NAs) - 1))
 # Útskýringar á breytum til birtingar á síðu
 breyturUtskyringar <- NULL
 breyturUtskyringar[["Byggingarvísitala"]] <- "Vísitala sem mælir hvernig kostnaður við húsbyggingar breytist frá einum tíma til annars. Heimild: Hagstofa Íslands."
-breyturUtskyringar[["Fjöldi íbúðahúsnæða í byggingu á HBSV."]] <- "Heimild: Hagstofa Íslands." 
-breyturUtskyringar[["Fermetrar af íbúðahúsnæði í byggingu á HBSV. [þús. m²]"]] <- "Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Fjöldi íbúðahúsnæða í byggingu á HBSV."]] <- "Fjöldi íbúðahúsnæða í byggingu við árslok. Heimild: Hagstofa Íslands." 
+breyturUtskyringar[["Fermetrar af íbúðahúsnæði í byggingu á HBSV. [þús. m²]"]] <- "Heildarfermetrafjöldi af íbúðarhúsnæða í byggingu við árslok. Heimild: Hagstofa Íslands."
 breyturUtskyringar[["Fjöldi nýbyggða íbúðahúsnæða á HBSV."]] <- "Heimild: Hagstofa Íslands."
 breyturUtskyringar[["Fermetrar af nýbyggðu íbúðarhúsnæði á HBSV. [þús. m²]"]] <- "Heimild: Hagstofa Íslands."
 breyturUtskyringar[["Fjöldi íbúðarhúsnæða"]] <- "Segir til um fjölda íbúðarhúsnæða á höfuðborgarsvæðinu það árið. Heimild: Þjóðskrá Íslands."
-breyturUtskyringar[["Fjöldi fjölskyldna með neikvætt eigið fé"]] <- "Heimild: Hagstofa Íslands."
-breyturUtskyringar[["Neikvætt eigið fé fjölskyldna, meðaltal [þús.kr]"]] <- "Heimild: Hagstofa Íslands."
-breyturUtskyringar[["Heimili hbsv. Eignir, meðaltal [þús.kr]"]] <- "Heimild: Hagstofa Íslands."
-breyturUtskyringar[["Heimili hbsv. Skuldir, meðaltal [þús.kr]"]] <- "Heimild: Hagstofa Íslands."
-breyturUtskyringar[["Fjöldi Gistinátta á HBSV, Allir"]] <- "Gistinætur í hvers konar gistingu sem boðið er upp á. Heimild: Hagstofa Íslands."
-breyturUtskyringar[["Fjöldi Gistinátta á HBSV, Íslendingar"]] <- "Gistinætur í hvers konar gistingu sem boðið er upp á. Heimild: Hagstofa Íslands."
-breyturUtskyringar[["Fjöldi Gistinátta á HBSV, Útlendingar"]] <- "Gistinætur í hvers konar gistingu sem boðið er upp á. Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Fjöldi fjölskyldna með neikvætt eigið fé í fasteign"]] <- "Fjöldskyldur þar sem skuldir á fasteign eru hærri en virði fasteignarinnar. Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Meðaltalið fyrir neikvætt eigið fé í fasteign [þús.kr]"]] <- "Meðaltal fyrir mun á skuldum og verðmæti fasteignar, þar sem skuldir á fasteign eru hærri en virði hennar. Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Heimili hbsv. Eignir, meðaltal [þús.kr]"]] <- "Meðaltal heildareigna fjöldskyldu á landinu. Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Heimili hbsv. Skuldir, meðaltal [þús.kr]"]] <- "Meðaltal heildarskulda fjöldskyldu á landinu. Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Fjöldi Gistinátta á HBSV, Allir"]] <- "Seldur sólahringur í gistingu fyrir einn einstakling. Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Fjöldi Gistinátta á HBSV, Íslendingar"]] <- "Seldur sólahringur í gistingu fyrir einn einstakling. Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Fjöldi Gistinátta á HBSV, Útlendingar"]] <- "Seldur sólahringur í gistingu fyrir einn einstakling. Heimild: Hagstofa Íslands."
 breyturUtskyringar[["Makaskipti með íbúðarhúsnæði"]] <- "Makaskipti: Það að fasteign er látin í skiptum fyrir aðra fasteign eða þegar fasteign er látin upp í andvirði annarrar fasteignar og mismunur greiddur með peningum eða öðrum fjármunum. Heimild: Þjóðskrá"
 breyturUtskyringar[["Fjöldi seldra íbúðarhúsnæða"]] <- "Heimild: Þjóðskrá"
 breyturUtskyringar[["Fjöldi íbúðarhúsnæðis selt í lausafé"]] <- "Heimild: Þjóðskrá"
@@ -290,5 +290,10 @@ breyturUtskyringar[["Fermetraverð á nýjum íbúðum í sérbýli [þús. kr]"
 breyturUtskyringar[["Fjöldi seldra nýrra íbúða í sérbýli"]] <- "Sérbýli er allt sem telst ekki til fjölbýlis. Heimild: Þjóðskrá Íslands."
 breyturUtskyringar[["Fermetraverð á nýjum íbúðum í fjölbýli [þús. kr]"]] <- "Kaupverð á fermetra. Heimild: Þjóðskrá Íslands."
 breyturUtskyringar[["Fjöldi seldra nýrra íbúða í fjölbýli"]] <- "Heimild: Þjóðskrá Íslands."
-
-breyturUtskyringar[["Meðal flatarmál seldra íbúða í sérbýli á HBSV. [m²]"]]
+breyturUtskyringar[["Vísitala heildarlauna í samgöngum og flutningum"]] <- "Vísitala sem mælir samtala launa í Samgöngum og flutningi (I), flokkun eftir íslenskri atvinnugreinaflokkun (ÍSAT 95). Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Vísitala heildarlauna í verslun og viðgerðarþjónustu"]] <- "Vísitala sem mælir samtala launa í Verslun og viðgerðaþjónustu (G), flokkun eftir íslenskri atvinnugreinaflokkun (ÍSAT 95). Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Vísitala heildarlauna í byggingarstarfsemi og mannvirkjagerð"]] <- "Vísitala sem mælir samtala launa í byggingarstarfsemi og mannvirkjagerð (F), flokkun eftir íslenskri atvinnugreinaflokkun (ÍSAT 95). Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Vísitala heildarlauna í iðnaði"]] <- "Vísitala sem mælir samtala launa í iðnaði (D), flokkun eftir íslenskri atvinnugreinaflokkun (ÍSAT 95). Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Vísitala kaupmáttar launa"]] <- "Vísitala sem mælir breytingar milli ára á kaupmætti. Heimild: Hagstofa Íslands"
+breyturUtskyringar[["Fjolda sumarhúsa"]] <- "Heimild: Þjóðskrá Íslands"
+breyturUtskyringar[["Fjöldi sumarhúsa á HBSV"]] <- "Heimild: Þjóðskrá Íslands"
