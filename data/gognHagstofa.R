@@ -113,6 +113,7 @@ visitala_kaupmattar_launa <-
          , Ár >= 1994 & Ár <= 2014, select=c("Ár", "Vísitala", "Árshækkun síðustu 12 mánuði, %")
         )
 colnames(visitala_kaupmattar_launa) <- c("Ár", "Vísitala kaupmáttar launa", "Árshækkun vísitölu kaupmáttar launa síðustu 12 mánuði, %")
+visitala_kaupmattar_launa$`Árshækkun vísitölu kaupmáttar launa síðustu 12 mánuði, %` <- NULL
 
 #################
 # Byggingarvísitala
@@ -197,11 +198,11 @@ fjolskyldur_med_neikvaett_eigid_fe <-
 
 # Margfalda öll gildi með 1000 tþa tölurnar séu í þús.kr
 colnames(fjolskyldur_med_neikvaett_eigid_fe) <-
-  c("Ár", "Fjöldi fjölskyldna með neikvætt eigið fé", "Neikvætt eigið fé fjölskyldna, samtals [þús.kr]", "Neikvætt eigið fé fjölskyldna, meðaltal[þús.kr]")
-fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, samtals [þús.kr]` <- 
-  round(fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, samtals [þús.kr]` * 1000.0)
-fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, meðaltal[þús.kr]` <- 
-  round(fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, meðaltal[þús.kr]` * 1000.0)
+  c("Ár", "Fjöldi fjölskyldna með neikvætt eigið fé", "Neikvætt eigið fé fjölskyldna, samtals [þús.kr]", "Neikvætt eigið fé fjölskyldna, meðaltal [þús.kr]")
+fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, samtals [þús.kr]` <- NULL
+
+fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, meðaltal [þús.kr]` <- 
+  abs(round(fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, meðaltal [þús.kr]` * 1000.0))
 
 hagstofaFrame <- data.frame(Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'), 
                                  list(byggingarvisitala_agg,
