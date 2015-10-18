@@ -23,7 +23,7 @@ shinyUI(fluidPage(
            htmlOutput('yvar'), 
            htmlOutput('yvarUtskyring'),
            htmlOutput('sizevar'),
-           htmlOutput('sizevarUtskyring'),
+           htmlOutput('sizevarUtskyring')
     ),
     column(6,
            htmlOutput('view')
