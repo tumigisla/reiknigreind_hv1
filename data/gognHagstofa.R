@@ -264,7 +264,7 @@ breyturUtskyringar[["Fjöldi nýbyggða íbúðahúsnæða á HBSV."]] <- "Heimi
 breyturUtskyringar[["Fermetrar af nýbyggðu íbúðarhúsnæði á HBSV. [þús. m²]"]] <- "Heimild: Hagstofa Íslands."
 breyturUtskyringar[["Fjöldi íbúðarhúsnæða"]] <- "Segir til um fjölda íbúðarhúsnæða á höfuðborgarsvæðinu það árið. Heimild: Þjóðskrá Íslands."
 breyturUtskyringar[["Fjöldi fjölskyldna með neikvætt eigið fé"]] <- "Heimild: Hagstofa Íslands."
-breyturUtskyringar[["Neikvætt eigið fé fjölskyldna, samtals [þús.kr]"]] <- "Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Neikvætt eigið fé fjölskyldna, meðaltal [þús.kr]"]] <- "Heimild: Hagstofa Íslands."
 breyturUtskyringar[["Heimili hbsv. Eignir, meðaltal [þús.kr]"]] <- "Heimild: Hagstofa Íslands."
 breyturUtskyringar[["Heimili hbsv. Skuldir, meðaltal [þús.kr]"]] <- "Heimild: Hagstofa Íslands."
 breyturUtskyringar[["Fjöldi Gistinátta á HBSV, Allir"]] <- "Gistinætur í hvers konar gistingu sem boðið er upp á. Heimild: Hagstofa Íslands."
@@ -290,3 +290,5 @@ breyturUtskyringar[["Fermetraverð á nýjum íbúðum í sérbýli [þús. kr]"
 breyturUtskyringar[["Fjöldi seldra nýrra íbúða í sérbýli"]] <- "Sérbýli er allt sem telst ekki til fjölbýlis. Heimild: Þjóðskrá Íslands."
 breyturUtskyringar[["Fermetraverð á nýjum íbúðum í fjölbýli [þús. kr]"]] <- "Kaupverð á fermetra. Heimild: Þjóðskrá Íslands."
 breyturUtskyringar[["Fjöldi seldra nýrra íbúða í fjölbýli"]] <- "Heimild: Þjóðskrá Íslands."
+
+breyturUtskyringar[["Meðal flatarmál seldra íbúða í sérbýli á HBSV. [m²]"]]

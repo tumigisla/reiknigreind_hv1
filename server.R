@@ -6,8 +6,11 @@ shinyServer(function(input, output) {
   sizeVariable <- reactive({input$sizeaxis})
   
   output$xvar <- xaxisVariable
+  output$xvarUtskyring <- reactive(toString(breyturUtskyringar[xaxisVariable()]))
   output$yvar <- yaxisVariable
+  output$yvarUtskyring <- reactive(toString(breyturUtskyringar[yaxisVariable()]))
   output$sizevar <- sizeVariable
+  output$sizevarUtskyring <- reactive(toString(breyturUtskyringar[sizeaxisVariable()]))
   
   output$view <- renderGvis({
     options = list(width=1000, height=1000, hAxis=paste0('{title: "', xaxisVariable(),'"}'), vAxis = paste0('{title: "', yaxisVariable(), '"}'),
