@@ -92,7 +92,7 @@ remove(gistinaetur)
 # Data variable: launakostnadarvisitala
 #################
 launakostnadarvisitala <-
-  data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/launakostnadarvisitala/launakostnadureldra/VIN02500.px',
+  data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/launakostnadur/launakostnadureldra/VIN02500.px',
                            dims=list('Ársfjórðungur'=c('4'), 'Atvinnugrein'=c('*'), 'Vísitala'=c('2'), 'Eining'=c('0'), 'Ár'=c('*')), clean=FALSE))
 # Tek út dálk sem á ekki við
 launakostnadarvisitala$Ársfjórðungur <- NULL
