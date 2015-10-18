@@ -17,7 +17,10 @@ shinyUI(fluidPage(
                        choices = colnames(masterFrame)[2:length(colnames(masterFrame))]),
               selectInput("sizeaxis", "Veldu breytu fyrir kúlustærð",
                        choice = colnames(masterFrame)[2:length(colnames(masterFrame))])
-           )
+           ),
+           htmlOutput('xvar'),
+           htmlOutput('yvar'),
+           htmlOutput('sizevar')
     ),
     column(6,
            htmlOutput('view')
