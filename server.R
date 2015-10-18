@@ -1,6 +1,10 @@
 library(googleVis)
 library(shiny)
 shinyServer(function(input, output) {
+  
+  source('data/read_csv.R', chdir=T, encoding = 'UTF-8')
+  source('data/gognHagstofa.R', chdir=T, encoding = 'UTF-8')
+  
   yaxisVariable <- reactive({input$yaxis})
   xaxisVariable <- reactive({input$xaxis})
   sizeVariable <- reactive({input$sizeaxis})
