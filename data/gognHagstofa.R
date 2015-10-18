@@ -217,6 +217,19 @@ hagstofaFrame <- data.frame(Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'
                                       launakostnadarvisitala
                                  )), check.names = FALSE)
 
+
+
+
+
+
+breyturUtskyringar[["Makaskipti með íbúðarhúsnæði"]] <- "Makaskipti: Það að fasteign er látin í skiptum fyrir aðra fasteign eða þegar fasteign er látin upp í andvirði annarrar fasteignar og mismunur greiddur með peningum eða öðrum fjármunum. Heimild: Þjóðskrá"
+breyturUtskyringar[["Fjöldi seldra íbúðarhúsnæða"]] <- "Heimild: Þjóðskrá"
+breyturUtskyringar[["Fjöldi íbúðarhúsnæðis selt í lausafé"]] <- "Heimild: Þjóðskrá"
+breyturUtskyringar[["Rúmmetraverð á vísitöluhúsi á HBSV. [þús.kr.]"]] <- "Í lögum um vísitölu byggingarkostnaðar er kveðið á um að vísitöluhúsið skuli vera fjölbýlishús á höfuðborgarsvæðinu. Árlega er valið nýtt vísitöluhús. Heimild: Hagstofan"
+breyturUtskyringar[["Fermetraverð á vísitöluhúsi á HBSV. [þús.kr.]"]] <- "Í lögum um vísitölu byggingarkostnaðar er kveðið á um að vísitöluhúsið skuli vera fjölbýlishús á höfuðborgarsvæðinu. Árlega er valið nýtt vísitöluhús. Heimild: Hagstofan"
+breyturUtskyringar[["Fjöldi seldra íbúðarhúsnæða á HBSV."]] <- "Heimild: Þjóðskrá"
+
+
 #Data frame merging
 masterFrame <- data.frame(Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'), 
                                  list(byggingarvisitala_agg,
