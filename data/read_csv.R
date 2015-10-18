@@ -1,5 +1,7 @@
 library(plyr)
 
+
+
 # Script sem les inn gögn frá þjóðskrá tengd íbúðarverði. Gögnin voru fengin af netsíðu þjóðskrár á
 # excel formi og breytt yfir á CSV.
 
@@ -86,7 +88,6 @@ makaskipti_2006 <- subset(data.frame(custom_aggregate(makaskipti_hbsv_1$Makaskip
 colnames(makaskipti_2006) <- c('Ár', 'Makaskipti', 'Samningar', 'Lausafé')
 # Sameina gögnin. Upplýsingar um íbúðir keyptar með lausafé vantar fyrir ár fyrir 2006.
 makaskipti <- rbind.fill(makaskipti, makaskipti_2006)
-print(makaskipti)
 makaskipti$Ár <- as.integer(makaskipti$Ár)
 makaskipti <- subset(data.frame(custom_aggregate(makaskipti$Makaskipti, list(makaskipti$Ár), sum),
                                 extract_column(custom_aggregate(makaskipti$Samningar, list(makaskipti$Ár), sum), 'x'),
