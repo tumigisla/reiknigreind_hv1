@@ -260,4 +260,4 @@ breyturUtskyringar[["Fjöldi íbúðahúsnæða í byggingu á HBSV."]] <- "Heim
 breyturUtskyringar[["Fermetrar af íbúðahúsnæði í byggingu á HBSV. [þús. m²]"]] <- "Heimild: Hagstofa Íslands."
 breyturUtskyringar[["Fjöldi nýbyggða íbúðahúsnæða á HBSV."]] <- "Heimild: Hagstofa Íslands."
 breyturUtskyringar[["Fermetrar af nýbyggðu íbúðarhúsnæði á HBSV. [þús. m²]"]] <- "Heimild: Hagstofa Íslands."
-breyturUtskyringar[["Fjöldi íbúðarhúsnæða"]] <- "Segir til um fjölda íbúðarhúsnæða á höfuðborgarsvæðinu það árið. Heimild: Þjóðskrá Íslands.
+breyturUtskyringar[["Fjöldi íbúðarhúsnæða"]] <- "Segir til um fjölda íbúðarhúsnæða á höfuðborgarsvæðinu það árið. Heimild: Þjóðskrá Íslands."
