@@ -200,11 +200,11 @@ fjolskyldur_med_neikvaett_eigid_fe <-
 
 # Margfalda öll gildi með 1000 tþa tölurnar séu í þús.kr
 colnames(fjolskyldur_med_neikvaett_eigid_fe) <-
-  c("Ár", "Fjöldi fjölskyldna með neikvætt eigið fé", "Neikvætt eigið fé fjölskyldna, samtals [þús.kr]", "Neikvætt eigið fé fjölskyldna, meðaltal [þús.kr]")
+  c("Ár", "Fjöldi fjölskyldna með neikvætt eigið fé í fasteign", "Neikvætt eigið fé fjölskyldna, samtals [þús.kr]", "Meðaltalið fyrir neikvætt eigið fé í fasteign [þús.kr]")
 fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, samtals [þús.kr]` <- NULL
 
-fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, meðaltal [þús.kr]` <- 
-  abs(round(fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, meðaltal [þús.kr]` * 1000.0))
+fjolskyldur_med_neikvaett_eigid_fe$`Meðaltalið fyrir neikvætt eigið fé í fasteign [þús.kr]` <- 
+  abs(round(fjolskyldur_med_neikvaett_eigid_fe$`Meðaltalið fyrir neikvætt eigið fé í fasteign [þús.kr]` * 1000.0))
 
 hagstofaFrame <- data.frame(Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'),
                                  list(byggingarvisitala_agg,
@@ -263,13 +263,13 @@ breyturUtskyringar[["Fermetrar af íbúðahúsnæði í byggingu á HBSV. [þús
 breyturUtskyringar[["Fjöldi nýbyggða íbúðahúsnæða á HBSV."]] <- "Heimild: Hagstofa Íslands."
 breyturUtskyringar[["Fermetrar af nýbyggðu íbúðarhúsnæði á HBSV. [þús. m²]"]] <- "Heimild: Hagstofa Íslands."
 breyturUtskyringar[["Fjöldi íbúðarhúsnæða"]] <- "Segir til um fjölda íbúðarhúsnæða á höfuðborgarsvæðinu það árið. Heimild: Þjóðskrá Íslands."
-breyturUtskyringar[["Fjöldi fjölskyldna með neikvætt eigið fé"]] <- "Heimild: Hagstofa Íslands."
-breyturUtskyringar[["Neikvætt eigið fé fjölskyldna, samtals [þús.kr]"]] <- "Heimild: Hagstofa Íslands."
-breyturUtskyringar[["Heimili hbsv. Eignir, meðaltal [þús.kr]"]] <- "Heimild: Hagstofa Íslands."
-breyturUtskyringar[["Heimili hbsv. Skuldir, meðaltal [þús.kr]"]] <- "Heimild: Hagstofa Íslands."
-breyturUtskyringar[["Fjöldi Gistinátta á HBSV, Allir"]] <- "Gistinætur í hvers konar gistingu sem boðið er upp á. Heimild: Hagstofa Íslands."
-breyturUtskyringar[["Fjöldi Gistinátta á HBSV, Íslendingar"]] <- "Gistinætur í hvers konar gistingu sem boðið er upp á. Heimild: Hagstofa Íslands."
-breyturUtskyringar[["Fjöldi Gistinátta á HBSV, Útlendingar"]] <- "Gistinætur í hvers konar gistingu sem boðið er upp á. Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Fjöldi fjölskyldna með neikvætt eigið fé í fasteign"]] <- "Fjöldskyldur þar sem skuldir á fasteign eru hærri en virði fasteignarinnar. Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Meðaltalið fyrir neikvætt eigið fé í fasteign [þús.kr]"]] <- "Meðaltal fyrir mun á skuldum og verðmæti fasteignar, þar sem skuldir á fasteign eru hærri en virði hennar. Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Heimili hbsv. Eignir, meðaltal [þús.kr]"]] <- "Meðaltal heildareigna fjöldskyldu á landinu. Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Heimili hbsv. Skuldir, meðaltal [þús.kr]"]] <- "Meðaltal heildarskulda fjöldskyldu á landinu. Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Fjöldi Gistinátta á HBSV, Allir"]] <- "Seldur sólahringur í gistingu fyrir einn einstakling. Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Fjöldi Gistinátta á HBSV, Íslendingar"]] <- "Seldur sólahringur í gistingu fyrir einn einstakling. Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Fjöldi Gistinátta á HBSV, Útlendingar"]] <- "Seldur sólahringur í gistingu fyrir einn einstakling. Heimild: Hagstofa Íslands."
 breyturUtskyringar[["Makaskipti með íbúðarhúsnæði"]] <- "Makaskipti: Það að fasteign er látin í skiptum fyrir aðra fasteign eða þegar fasteign er látin upp í andvirði annarrar fasteignar og mismunur greiddur með peningum eða öðrum fjármunum. Heimild: Þjóðskrá"
 breyturUtskyringar[["Fjöldi seldra íbúðarhúsnæða"]] <- "Heimild: Þjóðskrá"
 breyturUtskyringar[["Fjöldi íbúðarhúsnæðis selt í lausafé"]] <- "Heimild: Þjóðskrá"
