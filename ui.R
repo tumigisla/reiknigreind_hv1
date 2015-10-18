@@ -20,9 +20,11 @@ shinyUI(fluidPage(
            ),
            tags$b(htmlOutput('xvar')), 
            htmlOutput('xvarUtskyring'),
-           htmlOutput('yvar'), 
+           br(),
+           tags$b(htmlOutput('yvar')), 
            htmlOutput('yvarUtskyring'),
-           htmlOutput('sizevar'),
+           br(),
+           tags$b(htmlOutput('sizevar')),
            htmlOutput('sizevarUtskyring')
     ),
     column(6,
