@@ -6,9 +6,12 @@ shinyUI(pageWithSidebar(
     selectInput("yaxis", "Veldu breytu fyrir y-ás", 
                 choices = colnames(masterFrame)[2:length(colnames(masterFrame))]),
     selectInput("sizeaxis", "Veldu breytu fyrir kúlustærð",
-                choice = colnames(masterFrame)[2:length(colnames(masterFrame))])
+                choice = colnames(masterFrame)[2:length(colnames(masterFrame))]),
+    htmlOutput("xvar"),
+    htmlOutput("yvar"),
+    htmlOutput("sizevar")
   ),
-    mainPanel(
+  mainPanel(
     htmlOutput("view")
   )
 ))

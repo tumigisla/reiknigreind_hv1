@@ -203,6 +203,17 @@ fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, samtals [
 fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, meðaltal[þús.kr]` <- 
   round(fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, meðaltal[þús.kr]` * 1000.0)
 
+hagstofaFrame <- data.frame(Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'), 
+                                 list(byggingarvisitala_agg,
+                                      bygging_ibudarhusnaeda,
+                                      fjolskyldur_med_neikvaett_eigid_fe,
+                                      skuldir_eignir_eiginfjarstada,
+                                      gistinaetur_modified,
+                                      rummetra_og_fermetraverd_agg,
+                                      visitala_kaupmattar_launa,
+                                      launakostnadarvisitala
+                                 )), check.names = FALSE)
+
 #Data frame merging
 masterFrame <- data.frame(Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'), 
                                  list(byggingarvisitala_agg,
@@ -240,3 +251,12 @@ for (i in 1:(length(masterFrame_wo_NAs) - 1))
 {
   masterFrame_wo_NAs[[i + 1]] <- lapply(masterFrame_wo_NAs[[i + 1]], function(x) {replace(x, is.na(x) | x == 'NA' | x == '.' | x == '..', -2147483647)})
 } 
+
+# Útskýringar á breytum til birtingar á síðu
+breyturUtskyringar <- NULL
+breyturUtskyringar[["Byggingarvísitala"]] <- "Vísitala sem mælir hvernig kostnaður við húsbyggingar breytist frá einum tíma til annars. Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Fjöldi íbúðahúsnæða í byggingu á HBSV."]] <- "Heimild: Hagstofa Íslands." 
+breyturUtskyringar[["Fermetrar af íbúðahúsnæði í byggingu á HBSV. [þús. m²]"]] <- "Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Fjöldi nýbyggða íbúðahúsnæða á HBSV."]] <- "Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Fermetrar af nýbyggðu íbúðarhúsnæði á HBSV. [þús. m²]"]] <- "Heimild: Hagstofa Íslands."
+breyturUtskyringar[["Fjöldi íbúðarhúsnæða"]] <- "Segir til um fjölda íbúðarhúsnæða á höfuðborgarsvæðinu það árið. Heimild: Þjóðskrá Íslands.
