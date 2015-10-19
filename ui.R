@@ -1,9 +1,9 @@
+#UI hluti af Shiny app.
+
 shinyUI(fluidPage(
   
   h1("Fasteignaverð og áhrifaþættir þess", align='center'),
-  
-  
-  
+
   hr(),
   
   fluidRow(
@@ -12,11 +12,11 @@ shinyUI(fluidPage(
               h4('Stýringar fyrir graf', align='center'),
               hr(),
               selectInput("xaxis", "Veldu breytu fyrir x-ás",
-                       choice = colnames(masterFrame)[2:length(colnames(masterFrame))]),
+                       choice = c("Byggingarvísitala")),
               selectInput("yaxis", "Veldu breytu fyrir y-ás", 
-                       choices = colnames(masterFrame)[2:length(colnames(masterFrame))]),
+                       choices = c("Byggingarvísitala")),
               selectInput("sizeaxis", "Veldu breytu fyrir kúlustærð",
-                       choice = colnames(masterFrame)[2:length(colnames(masterFrame))])
+                       choice = c("Byggingarvísitala"))
            ),
            wellPanel(
               h4('Útskýringar á breytum', align='center'),

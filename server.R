@@ -1,9 +1,16 @@
 library(googleVis)
 library(shiny)
-shinyServer(function(input, output) {
+
+# Backend fyrir Shiny App.
+
+shinyServer(function(input, output, session) {
   
-  source('data/read_csv.R', chdir=T, encoding = 'UTF-8')
-  source('data/gognHagstofa.R', chdir=T, encoding = 'UTF-8')
+  source('data/read_csv.R', local=TRUE, chdir=T, encoding = 'UTF-8')
+  source('data/gognHagstofa.R', local=TRUE, chdir=T, encoding = 'UTF-8')
+  
+  updateSelectInput(session, "xaxis", choices=colnames(masterFrame)[2:length(colnames(masterFrame))])
+  updateSelectInput(session, "yaxis", choices=colnames(masterFrame)[2:length(colnames(masterFrame))])
+  updateSelectInput(session, "sizeaxis", choices=colnames(masterFrame)[2:length(colnames(masterFrame))])
   
   yaxisVariable <- reactive({input$yaxis})
   xaxisVariable <- reactive({input$xaxis})

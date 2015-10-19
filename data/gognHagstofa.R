@@ -1,7 +1,3 @@
-# install.packages('pxweb')
-# install.packages('data.table')
-# install.packages('googleVis')
-
 require(pxweb)
 require(data.table)
 require(googleVis)
@@ -39,7 +35,6 @@ filter_by_period <- function(dataentity, yearfrom, yearto)
 }
 
 #Sækjum gögn frá hagstofunni
-
 #################
 # Bygging íbúðarhúsnæða
 # Data variable: bygging_ibudarhusnaeda
@@ -206,17 +201,6 @@ fjolskyldur_med_neikvaett_eigid_fe$`Neikvætt eigið fé fjölskyldna, samtals [
 fjolskyldur_med_neikvaett_eigid_fe$`Meðaltalið fyrir neikvætt eigið fé í fasteign [þús.kr]` <- 
   abs(round(fjolskyldur_med_neikvaett_eigid_fe$`Meðaltalið fyrir neikvætt eigið fé í fasteign [þús.kr]` * 1000.0))
 
-hagstofaFrame <- data.frame(Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'),
-                                   list(byggingarvisitala_agg,
-                                        bygging_ibudarhusnaeda,
-                                        fjolskyldur_med_neikvaett_eigid_fe,
-                                        skuldir_eignir_eiginfjarstada,
-                                        gistinaetur_modified,
-                                        rummetra_og_fermetraverd_agg,
-                                        visitala_kaupmattar_launa,
-                                        launakostnadarvisitala
-                                   )), check.names = FALSE)
-
 #Data frame merging
 masterFrame <- data.frame(Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'), 
                                  list(byggingarvisitala_agg,
@@ -241,19 +225,6 @@ masterFrame <- data.frame(Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'),
 for(i in c(1,3:ncol(masterFrame))) {
   masterFrame[,i] <- as.numeric(as.character(masterFrame[,i]))
 }
-
-masterFrameScatter <- masterFrame[sapply(masterFrame, function(masterFrame) !any(is.na(masterFrame)))] 
-masterFrameScatter[] <- lapply(masterFrameScatter, function(x) as.numeric(as.character(x)))
-
-# Hefur 0 í staðinn fyrir öll NA
-masterFrame_wo_NAs <- masterFrame
-for(i in c(1,3:ncol(masterFrame_wo_NAs))) {
-  masterFrame_wo_NAs[,i] <- suppressWarnings(as.numeric(as.character(masterFrame_wo_NAs[,i])))
-}
-for (i in 1:(length(masterFrame_wo_NAs) - 1))
-{
-  masterFrame_wo_NAs[[i + 1]] <- lapply(masterFrame_wo_NAs[[i + 1]], function(x) {replace(x, is.na(x) | x == 'NA' | x == '.' | x == '..', -2147483647)})
-} 
 
 # Útskýringar á breytum til birtingar á síðu
 breyturUtskyringar <- NULL
