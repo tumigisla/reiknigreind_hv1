@@ -9,6 +9,12 @@ shinyUI(fluidPage(
   fluidRow(
     column(4,
            wellPanel(
+             h3("Eftirfarandi gögn eru sett fram í þeim tilgangi að megi rýna og
+               bera saman fjárhagslega stöðu almennings við fasteignaverð."),
+             h4("Gögnin gilda fyrir allt landið nema annað sé tekið fram."),
+             h4("HBSV: Höfuðborgarsvæðið.")
+           ),
+           wellPanel(
               h4('Stýringar fyrir graf', align='center'),
               hr(),
               selectInput("xaxis", "Veldu breytu fyrir x-ás",
