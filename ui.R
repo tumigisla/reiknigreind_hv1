@@ -14,9 +14,13 @@ shinyUI(fluidPage(
              h4("Gögnin gilda fyrir allt landið nema annað sé tekið fram."),
              h4("HBSV: Höfuðborgarsvæðið.")
            ),
+           # Inntak fyrir notenda til að velja hvaða breytur eru á grafi.
            wellPanel(
               h4('Stýringar fyrir graf', align='center'),
               hr(),
+              # Val fyrir hvaða breytur eru á ásunum. Í byrjun er bara Byggingarvísitala
+              # til að grafið teiknast rétt. Réttur listi yfir breyturnar er
+              # seinna settur inn af server.R
               selectInput("xaxis", "Veldu breytu fyrir x-ás",
                        choice = c("Byggingarvísitala")),
               selectInput("yaxis", "Veldu breytu fyrir y-ás", 
@@ -24,6 +28,7 @@ shinyUI(fluidPage(
               selectInput("sizeaxis", "Veldu breytu fyrir kúlustærð",
                        choice = c("Byggingarvísitala"))
            ),
+           # Útskýringar fyrir valdar breytur.
            wellPanel(
               h4('Útskýringar á breytum', align='center'),
               hr(),
@@ -37,6 +42,7 @@ shinyUI(fluidPage(
               htmlOutput('sizevarUtskyring')
            )
     ),
+    # Sýnir Bubble Chart graf.
     column(6,
            htmlOutput('view')
            )
