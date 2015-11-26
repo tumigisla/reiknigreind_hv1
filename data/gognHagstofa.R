@@ -52,35 +52,35 @@ colnames(bygging_ibudarhusnaeda) <- c('Ár', 'Fjöldi íbúðahúsnæða í bygg
 # Gistinætur
 # Data variable: gistinaetur_modified
 #################
-gistinaetur <-
-  data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/ferdathjonusta/Gisting/GiAllir/SAM01601.px',
-                            dims=list('Ríkisfang'=c('0', '1', '2'), 'Landsvæði'=c('1'), 'Mánuður'=c('0'), 'Eining'=c('1'), 'Ár'=c('*')), clean=FALSE))
-
-# Tek út dálk sem á ekki við
-gistinaetur$Eining <- NULL
-
-# Læt línurnar úr gamla vera dálka í nýju, breyttu data frame-i
-gistinaetur_modified <- c(1998:2014)
-fjoldi_rikisfanga <- length(gistinaetur$Ríkisfang)
-for (i in 1:fjoldi_rikisfanga)
-{
-  stakt_rikisfang <- subset(gistinaetur, gistinaetur$Ríkisfang == gistinaetur$Ríkisfang[[i]])
-  gistinaetur_rikisfangs <- NULL
-  for (gistinott in stakt_rikisfang)
-  {
-    gistinaetur_rikisfangs <- c(gistinaetur_rikisfangs, gistinott) 
-  }
-  gistinaetur_modified <- cbind(data.frame(gistinaetur_modified, rev(gistinaetur_rikisfangs[-1])))
-}
-
-# Bæti við hbsv(Höfuðborgarsvæðið) o.fl. uppl. í dálkaheiti
-gistinaetur_dalkanofn <- NULL
-for (rikisfang in c('Allir', 'Íslendingar', 'Útlendingar'))
-{
-  gistinaetur_dalkanofn <- c(gistinaetur_dalkanofn, paste0("Fjöldi Gistinátta á HBSV, ", rikisfang))
-}
-colnames(gistinaetur_modified) <- c("Ár", gistinaetur_dalkanofn)
-remove(gistinaetur)
+# gistinaetur <-
+#   data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Atvinnuvegir/ferdathjonusta/Gisting/GiAllir/SAM01601.px',
+#                             dims=list('Ríkisfang'=c('0', '1', '2'), 'Landsvæði'=c('1'), 'Mánuður'=c('0'), 'Eining'=c('1'), 'Ár'=c('*')), clean=FALSE))
+# 
+# # Tek út dálk sem á ekki við
+# gistinaetur$Eining <- NULL
+# 
+# # Læt línurnar úr gamla vera dálka í nýju, breyttu data frame-i
+# gistinaetur_modified <- c(1998:2014)
+# fjoldi_rikisfanga <- length(gistinaetur$Ríkisfang)
+# for (i in 1:fjoldi_rikisfanga)
+# {
+#   stakt_rikisfang <- subset(gistinaetur, gistinaetur$Ríkisfang == gistinaetur$Ríkisfang[[i]])
+#   gistinaetur_rikisfangs <- NULL
+#   for (gistinott in stakt_rikisfang)
+#   {
+#     gistinaetur_rikisfangs <- c(gistinaetur_rikisfangs, gistinott) 
+#   }
+#   gistinaetur_modified <- cbind(data.frame(gistinaetur_modified, rev(gistinaetur_rikisfangs[-1])))
+# }
+# 
+# # Bæti við hbsv(Höfuðborgarsvæðið) o.fl. uppl. í dálkaheiti
+# gistinaetur_dalkanofn <- NULL
+# for (rikisfang in c('Allir', 'Íslendingar', 'Útlendingar'))
+# {
+#   gistinaetur_dalkanofn <- c(gistinaetur_dalkanofn, paste0("Fjöldi Gistinátta á HBSV, ", rikisfang))
+# }
+# colnames(gistinaetur_modified) <- c("Ár", gistinaetur_dalkanofn)
+# remove(gistinaetur)
 
 #################
 # Launakostnaðarvísitala
@@ -102,13 +102,13 @@ launakostnadarvisitala <- subset(launakostnadarvisitala, Ár < 2013)
 # Vísitala kaupmáttar launa
 # Data variable: visitala_kaupmattar_launa
 #################
-visitala_kaupmattar_launa <-
-  subset(data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Samfelag/launogtekjur/1_launavisitala/1_launavisitala/VIS04004.px',
-                                   dims=list('Breytingar'=c('*'), 'Mánuður'=c('12'), 'Ár'=c('*')), clean=FALSE))
-         , Ár >= 1994 & Ár <= 2014, select=c("Ár", "Vísitala", "Árshækkun síðustu 12 mánuði, %")
-  )
-colnames(visitala_kaupmattar_launa) <- c("Ár", "Vísitala kaupmáttar launa", "Árshækkun vísitölu kaupmáttar launa síðustu 12 mánuði, %")
-visitala_kaupmattar_launa$`Árshækkun vísitölu kaupmáttar launa síðustu 12 mánuði, %` <- NULL
+# visitala_kaupmattar_launa <-
+#   subset(data.table(get_pxweb_data(url='http://px.hagstofa.is/pxis/api/v1/is/Samfelag/launogtekjur/1_launavisitala/1_launavisitala/VIS04004.px',
+#                                    dims=list('Breytingar'=c('*'), 'Mánuður'=c('12'), 'Ár'=c('*')), clean=FALSE))
+#          , Ár >= 1994 & Ár <= 2014, select=c("Ár", "Vísitala", "Árshækkun síðustu 12 mánuði, %")
+#   )
+# colnames(visitala_kaupmattar_launa) <- c("Ár", "Vísitala kaupmáttar launa", "Árshækkun vísitölu kaupmáttar launa síðustu 12 mánuði, %")
+# visitala_kaupmattar_launa$`Árshækkun vísitölu kaupmáttar launa síðustu 12 mánuði, %` <- NULL
 
 #################
 # Byggingarvísitala
@@ -208,7 +208,6 @@ masterFrame <- data.frame(Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'),
                                       fjoldi_ibuda_allt,
                                       fjolskyldur_med_neikvaett_eigid_fe,
                                       skuldir_eignir_eiginfjarstada,
-                                      gistinaetur_modified,
                                       makaskipti,
                                       rummetra_og_fermetraverd_agg,
                                       hbsv_eftir_ar_all,
@@ -218,7 +217,6 @@ masterFrame <- data.frame(Reduce(function(x, y) merge(x, y, all=TRUE, by='Ár'),
                                       soluverd_ein,
                                       soluverd_fjol,
                                       sumarhus_landshlutum,
-                                      visitala_kaupmattar_launa,
                                       launakostnadarvisitala
                                  )), check.names = FALSE)
 

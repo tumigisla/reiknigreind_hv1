@@ -24,7 +24,7 @@ extract_column <- function(dataentity, columnname)
 # Gögn yfir söluverð íbúðarhúsnæðis á höfuðborgarsvæðinu.
 # Data variable: hbsv_eftir_ar_all
 ###############
-hbsv_eftir_ar_all <- read.csv("csv/hbsv_eftir_ár_allt_saman_201502260.csv", header = TRUE, skip=1,
+hbsv_eftir_ar_all <- read.csv("csv/hbsv_eftir_ar_allt_saman_201502260.csv", header = TRUE, skip=1,
                               nrows=34, encoding = "UTF-8")
 # Til að samræma þessi gögn við gögn frá Hagstofunni aðeins notast við ár eftir 1993.
 hbsv_eftir_ar_all <- subset(hbsv_eftir_ar_all, hbsv_eftir_ar_all$Ár >= 1994)
@@ -41,7 +41,7 @@ colnames(hbsv_eftir_ar_all) <- c('Ár', 'Fjöldi seldra íbúðahúsnæða á HB
 # Data variable: hbsv_eftir_ar_fjol
 ###############
 # Sömu aðgerðir og fyrir öll íbúðarhúsnæði.
-hbsv_eftir_ar_fjol <- read.csv("csv/hbsv_eftir_ár_allt_saman_201502261.csv", header = TRUE, skip=1,
+hbsv_eftir_ar_fjol <- read.csv("csv/hbsv_eftir_ar_allt_saman_201502261.csv", header = TRUE, skip=1,
                                nrows = 34, encoding = "UTF-8")
 hbsv_eftir_ar_fjol <- subset(hbsv_eftir_ar_fjol, hbsv_eftir_ar_fjol$Ár >= 1994)
 hbsv_eftir_ar_fjol <- hbsv_eftir_ar_fjol[, c(1, 2, 3, 4, 6)]
@@ -54,7 +54,7 @@ colnames(hbsv_eftir_ar_fjol) <- c('Ár', 'Fjöldi seldra íbúða í fjölbýli 
 # Data variable: hbsv_eftir_ar_ein
 ###############
 # Sömu aðgerir og fyrir öll íbúðarhúsnæði.
-hbsv_eftir_ar_ein <- read.csv("csv/hbsv_eftir_ár_allt_saman_201502262.csv", header = TRUE, skip=1, nrows=34, encoding = "UTF-8")
+hbsv_eftir_ar_ein <- read.csv("csv/hbsv_eftir_ar_allt_saman_201502262.csv", header = TRUE, skip=1, nrows=34, encoding = "UTF-8")
 hbsv_eftir_ar_ein <- subset(hbsv_eftir_ar_ein, hbsv_eftir_ar_ein$Ár >= 1994)
 hbsv_eftir_ar_ein <- hbsv_eftir_ar_ein[, c(1, 2, 3, 4, 6)]
 hbsv_eftir_ar_ein$Kaupverð.sérbýlis.á.fermeter..krónur. <- round(hbsv_eftir_ar_ein$Kaupverð.sérbýlis.á.fermeter..krónur./1000.0)
@@ -126,7 +126,7 @@ colnames(fjoldi_ibuda_hbsv) <- c('Ár', 'Fjöldi íbúðarhúsnæða á HBSV.')
 # Gögn yfir söluverð á nýju íbúðarhúsnæði.
 # data variable: soluverd_alls
 ######################
-soluverd_alls <- read.csv("csv/Söluverð_á_nýjum_íbúðum_201502250.csv", header=TRUE, skip=1, encoding = "UTF-8")
+soluverd_alls <- read.csv("csv/Soluverd_a_nyjum_ibudum_201502250.csv", header=TRUE, skip=1, encoding = "UTF-8")
 # Aðeins áhuga á árum eftir 1993.
 soluverd_alls <- subset(soluverd_alls, soluverd_alls$Ár >= 1994)
 # Samræma krónutölur í þúsundum króna.
@@ -140,7 +140,7 @@ colnames(soluverd_alls) <- c("Ár", "Fermetraverð á nýju íbúðarhúsnæði 
 # data variable: soluverd_fjol
 ######################
 # Sama aðferð og fyrir öll íbúðarhúsnæði.
-soluverd_fjol <- read.csv("csv/Söluverð_á_nýjum_íbúðum_201502251.csv", header=TRUE, skip=1, encoding = "UTF-8")
+soluverd_fjol <- read.csv("csv/Soluverd_a_nyjum_ibudum_201502251.csv", header=TRUE, skip=1, encoding = "UTF-8")
 soluverd_fjol <- subset(soluverd_fjol, soluverd_fjol$Ár >= 1994)
 soluverd_fjol$Kaupverð.á.fermeter <- round(soluverd_fjol$Kaupverð.á.fermeter/1000.0)
 soluverd_fjol <- soluverd_fjol[, c(1, 3, 4)]
@@ -151,7 +151,7 @@ colnames(soluverd_fjol) <- c("Ár", "Fermetraverð á nýjum íbúðum í fjölb
 # data variable: soluverd_ein
 ######################
 # Sama aðferð og fyrir öll íbúðarhúsnæði.
-soluverd_ein <- read.csv("csv/Söluverð_á_nýjum_íbúðum_201502252.csv", header=TRUE, skip=1, encoding = "UTF-8")
+soluverd_ein <- read.csv("csv/Soluverd_a_nyjum_ibudum_201502252.csv", header=TRUE, skip=1, encoding = "UTF-8")
 soluverd_ein <- subset(soluverd_ein, soluverd_ein$Ár >= 1994)
 soluverd_ein$Kaupverð.á.fermeter <- round(soluverd_ein$Kaupverð.á.fermeter/1000.0)
 soluverd_ein <- soluverd_ein[, c(1, 3, 4)]
@@ -161,7 +161,7 @@ colnames(soluverd_ein) <- c("Ár", "Fermetraverð á nýjum íbúðum í sérbý
 # Gögn yfir fjölda sumarhúsa á höfuðborgarsvæðinu og landinu öllu.
 # data variable: sumarhus_landshlutum.
 ######################
-sumarhus_landshlutum <- read.csv("csv/Sumarhús_e_landshlutum_24_08_20150.csv", header=TRUE, skip=2, nrows=18, encoding = "UTF-8")
+sumarhus_landshlutum <- read.csv("csv/Sumarhus_e_landshlutum_24_08_20150.csv", header=TRUE, skip=2, nrows=18, encoding = "UTF-8")
 # Aðeins áhuga á HBSV og öllu landinu.
 sumarhus_landshlutum <- sumarhus_landshlutum[, c(1, 2, 10)]
 colnames(sumarhus_landshlutum) <- c("Ár", "Fjöldi sumarhúsa á HBSV", "Fjöldi sumarhúsa")
